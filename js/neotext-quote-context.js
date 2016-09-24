@@ -25,7 +25,10 @@ popup_library = "jQuery";
 hidden_container = "neotext_container";	// div in footer than holds injected json data, requires css class to hide
 jQuery.curCSS = 'jQuery.css';
 version_num = "0.02";
-current_page_url = window.location.href;
+
+// Remove anchor from URL
+current_page_url = window.location.href.split('#')[0]
+//current_page_url = window.location.href;
 
 
 jQuery.fn.quoteContext = function() {
