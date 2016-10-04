@@ -1,21 +1,21 @@
 <?php
 /**
  * @package Neotext
- * @version 0.1
+ * @version 0.40
  */
 /*
-Plugin Name: Neotext
+Plugin Name: Neotext Quote-Context
 Plugin URI: http://www.neotext.net
 
-Description: Expands "blockquote" with surrounding text by : selecting all "blockquote" tags that have a "cite" attribute, downloading the cited url, locating the citation, saving the "before" and "after" text into a json file, and adding the retrieved text to the dom
+Description: Expands "blockquotes" with surrounding text by : selecting all "blockquote" tags that have a "cite" attribute, downloading the cited url, locating the citation, saving the "before" and "after" text into a json file, and adding the retrieved text to the dom
 Author: Tim Langeman
-Version: 0.11
+Version: 0.40
 Author URI: http://www.openpolitics.com/tim
 */
 
 function neotext_quote_context_header() {
 	wp_enqueue_script('jquery');
-    wp_enqueue_script('jquery-md5', plugins_url('lib/jquery.md5.js', __FILE__) );
+    wp_enqueue_script('sha1', plugins_url('lib/sha1.js', __FILE__) );
     wp_enqueue_script('quote-context', plugins_url('js/neotext-quote-context.js', __FILE__) );
 }
 
@@ -33,7 +33,7 @@ function neotext_quote_context_footer() {
         	jQuery('q, blockquote' ).quoteContext(); 
     </script>";
 
-	wp_enqueue_script('jquery-ui', '//code.jquery.com/ui/1.11.4/jquery-ui.js');
+	wp_enqueue_script('jquery-ui', '//code.jquery.com/ui/1.11.4/jquery-ui.min.js');
 	wp_enqueue_style('jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css');
 }
 
