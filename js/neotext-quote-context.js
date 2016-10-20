@@ -2,21 +2,23 @@
  * Quote-Context JS Library
  * https://github.com/neotext/neotext-quote-context/
  *
- * Copyright 2016, Tim Langeman
+ * Copyright 2015-2016, Tim Langeman
  * http://www.openpolitics.com/tim
  *
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
  *
- * This is a jQuery function that locates all "blockquote" and "q" tags 
- * within an html document and calls the neotext.net web service to 
+ * This is a jQuery function that locates all "blockquote" and "q" tags
+ * within an html document and calls the neotext.net web service to
  * locate contextual info about the requested quote.
- * 
- * The neotext web service returns a json dictionary and this script 
+ *
+ * The neotext web service returns a json dictionary and this script
  * injects the returned contextual data into hidden html elements to be
  * displayed when the user hovers over or clicks on the cited quote.
- * 
- * Dependencies: 
+ *
+ * Demo: http://www.neotext.net/demo/
+ *
+ * Dependencies:
  *  - jQuery: https://jquery.com/
  *  - Sha1: https://github.com/chrisveness/crypto/blob/master/sha1.js
 */
@@ -28,8 +30,6 @@ version_num = "0.02";
 
 // Remove anchor from URL
 current_page_url = window.location.href.split('#')[0]
-//current_page_url = window.location.href;
-
 
 jQuery.fn.quoteContext = function() {
 	// Add "before" and "after" sections to quote excerpts
@@ -42,14 +42,14 @@ jQuery.fn.quoteContext = function() {
 		if( jQuery(this).attr("cite") ){
 			var blockcite = jQuery(this);
 			var cited_url = blockcite.attr("cite");
-			var citing_url = current_page_url;  //'http://localhost/thesis.html';
+			var citing_url = current_page_url;
 			var citing_quote = blockcite.text();
 
-			// If they have a cite tag, check to see if its hash is already saved 
+			// If they have a cite tag, check to see if its hash is already saved
 			if (cited_url.length > 3){
 				var tag_type = jQuery(this)[0].tagName.toLowerCase();
 				var url_quote_text = trim_encode(citing_quote) + '|' + trim_encode(citing_url) + '|' + trim_encode(cited_url);
-				var quote_hash = Sha1.hash(url_quote_text); 
+				var quote_hash = Sha1.hash(url_quote_text);
 				var shard = quote_hash.substring(0,2);
 				var read_base = 'http://read.neotext.net/quote/';
 				var read_url = read_base.concat("sha1/", version_num, "/", shard, "/", quote_hash, ".json");
@@ -73,30 +73,33 @@ jQuery.fn.quoteContext = function() {
 
 				function add_quote_to_dom(tag_type, json ) {
 					if ( tag_type == "q"){
-						var q_id = "hidden_" + json['sha1'];						
+						var q_id = "hidden_" + json['sha1'];
 
 						//Add content to a hidden div, so that the popup can later grab it
-						jQuery("#" + hidden_container).append( 
+						jQuery("#" + hidden_container).append(
 							"<div id='" + q_id + "' class='highslide-maincontent'>.. " +
-								json['cited_context_before'] + " " + " <strong>" + json['citing_quote'] + "</strong> " + 
+								json['cited_context_before'] + " " + " <strong>" + json['citing_quote'] + "</strong> " +
 								json['cited_context_after'] + ".. </p>" +
 								"<p><a href='" + json['cited_url'] + "' target='_blank'>Read more</a> | " +
 								"<a href='javascript:close_popup(" + q_id + ");'>Close</a> </p></div>");
 
 						//Style quote as a link that calls the popup expander:  return this.onclick()
 						blockcite.wrapInner("<a href='" + blockcite.attr('cite') + "' " +
-							//"onmouseover='return this.onclick()' " +
-							//"onmouseover='return this.onclick()'" +
-							"onclick='return expand_popup(this ,\"" + q_id +"\")' " +	
+							"onclick='return expand_popup(this ,\"" + q_id +"\")' " +
 						 " />");
 					}
 					else if ( tag_type == "blockquote"){
 						//Fill 'before' and 'after' divs and then quickly hide them
-						blockcite.before("<div id='quote_before_" + json['sha1'] + "' class='quote_context'> \
-							<blockquote class='quote_context'>.. " + json["cited_context_before"] + "</blockquote></div>");
+						blockcite.before(" \
+							<div id='quote_before_" + json['sha1'] + "' class='quote_context'> \
+							  <blockquote class='quote_context'>.. " + json["cited_context_before"] + "</blockquote> \
+							</div> \
+						");
 
 						blockcite.after("<div id='quote_after_" + json['sha1'] + "' class='quote_context'> \
-							<blockquote class='quote_context'>" + json["cited_context_after"] + " ..</blockquote></div>");
+							<blockquote class='quote_context'>" + json["cited_context_after"] + " ..</blockquote></div> \
+							<div class='neotext_source'><span class='neotext_source_label'>source: </span> \
+							<a class='neotext_source_domain' href='" + json['cited_url'] + "'>" + extractDomain( json['cited_url'] ) + "</a></div>");
 
 						var context_before = jQuery("#quote_before_" + json['sha1']);
 						var context_after = jQuery("#quote_after_" + json['sha1']);
@@ -109,40 +112,22 @@ jQuery.fn.quoteContext = function() {
 						context_before.before("<div class='quote_arrows' id='context_up_" + json['sha1'] + "'> \
 							<a href=\"javascript:toggle_quote('before', 'quote_before_" + json['sha1'] + "');\">&#9650;</a></div>");
 						}
-						if( json['cited_context_after'].length > 0){					
+						if( json['cited_context_after'].length > 0){
 						context_after.after("<div class='quote_arrows' id='context_down_" + json['sha1'] +"'> \
 							<a href=\"javascript:toggle_quote('after', 'quote_after_" + json['sha1'] +"');\">&#9660;</a></div>");
 						}
 					}
 				}
 
-			/* Call Neotext.net webservice to retreive quote from origin
-			*  Calculate before and after offsets
-			*  Save results to database and output json */
-			function submit_quote_to_neotext(citing_quote, citing_url, cited_url, quote_hash) {
-			    jQuery.ajax({
-			        type: "POST",
-			        url: 'http://write.neotext.webfactional.com/quote/', 
-					data: {'citing_quote': citing_quote, 'citing_url': citing_url, 'cited_url': cited_url},
-			        dataType: "json",
-			        success: function(json) {
-			            add_quote_to_dom( json );
-						return json;
-			        },
-			        error: function() {
-						console.log("Neotext: unable to find quote on original site: \n'" + citing_quote + "'\n" + cited_url + "\n" + trim_regex(quote_hash));
-			        }
-			    });
-			  }
 			} // if url.length is not blank
-		}	// if "this" has a "cite" attribute		
+		}	// if "this" has a "cite" attribute
 	});	   //   jQuery(this).each(function() { : blockquote, or q tag
 
 };
 
 function toggle_quote(section, id){
 	jQuery("#" + id).fadeToggle();
-}				
+}
 
 function expand_popup(tag, hidden_popup_id){
   if (popup_library == "highslide"){
@@ -150,12 +135,12 @@ function expand_popup(tag, hidden_popup_id){
   }
   else {
 	jQuery.curCSS = jQuery.css;
-	
+
 	// Setup Initial Dialog box
 	jQuery("#" + hidden_popup_id).dialog({
 		autoOpen: false,
 		closeOnEscape: true,
-		closeText: "hide", 
+		closeText: "hide",
 		draggableType: true,
 		resizable: true,
 		width: 400,
@@ -168,13 +153,12 @@ function expand_popup(tag, hidden_popup_id){
 	// Add centering and other settings
 	jQuery("#" + hidden_popup_id).dialog("option", "position", { at: "center center", of: tag}
 		).dialog("option", "hide", { effect: "size", duration: 400 }
-		).dialog("option", "show", { effect: "scale", duration: 400 }		
+		).dialog("option", "show", { effect: "scale", duration: 400 }
 		).dialog( {"title" : "powered by neotext.net"}
 		).dialog("open"
-		).blur( 
-		//console.log("logging Neotext dialog blur ..")
+		).blur(
 	);
-	
+
 	// Close popup when you click outside of it
 	jQuery(document).mouseup(function(e) {
 	  var popupbox = jQuery(".ui-widget-overlay");
@@ -184,7 +168,6 @@ function expand_popup(tag, hidden_popup_id){
 	});
 
 	return false; // Don't follow link
-
   }
 }
 
@@ -194,13 +177,33 @@ function close_popup(hidden_popup_id){
 }
 
 //Source: http://stackoverflow.com/questions/10032024/how-to-remove-leading-and-trailing-white-spaces-from-a-given-html-string
-// Credit:  KhanSharp:  (used for backward compatibility.  
+// Credit:  KhanSharp:  (used for backward compatibility.
 //          trim() introduced in javascript 1.8.1)
-function trim_regex(str){  
+function trim_regex(str){
   return str.replace(/^[ ]+|[ ]+$/g,'')
 }
 
 function trim_encode(str){
 	 //trimmed_str = trim_regex(str);
-     return str.trim();
+   return str.trim();
 }
+
+
+// Credit: http://stackoverflow.com/questions/8498592/extract-root-domain-name-from-string
+function extractDomain(url) {
+    var domain;
+    //find & remove protocol (http, ftp, etc.) and get domain
+    if (url.indexOf("://") > -1) {
+        domain = url.split('/')[2];
+    }
+    else {
+        domain = url.split('/')[0];
+    }
+
+    //find & remove port number
+    domain = domain.split(':')[0];
+
+    return domain;
+}
+
+

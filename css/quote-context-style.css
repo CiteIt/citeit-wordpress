@@ -24,7 +24,18 @@ div.quote_arrows a, q, q a, span.q  {
 q, q a, span.q {
 	border-bottom: 1px dotted #444;		/* maroon: Credit: http://meta.stackoverflow.com */
 }
-	
+
+div.neotext_source {
+	float: right;
+	margin-right: 10%;
+	margin-top: -40px;
+	font-size: 85%;
+}
+
+span.neotext_source_label {
+	padding-right: 7px;
+	padding-left: 10px;
+}	
 
 /* JQUERY DEMO STYLE */
 div#demo_content {
