@@ -16,11 +16,11 @@ div.ui-dialog, div.ui-widget {
 span.blockquote {
 	color: #555;
 }
-	
+
 div.quote_arrows a, q, q a, span.q  {
 	color: #be1e2d;						/* maroon: Credit: http://meta.stackoverflow.com */
 }
-	
+
 q, q a, span.q {
 	border-bottom: 1px dotted #444;		/* maroon: Credit: http://meta.stackoverflow.com */
 }
@@ -35,7 +35,8 @@ div.neotext_source {
 span.neotext_source_label {
 	padding-right: 7px;
 	padding-left: 10px;
-}	
+  color: #999;
+}
 
 /* JQUERY DEMO STYLE */
 div#demo_content {
@@ -52,7 +53,7 @@ div#demo_content {
 	font-size: 14px;
 	color: red;
 }
-	
+
 /* Position Demo */
 .positionDiv {
   position: absolute;
