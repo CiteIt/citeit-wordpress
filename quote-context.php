@@ -104,12 +104,7 @@ function neotext_hook($post_id) {
    */
   $quotations_count = 0;
   $post_url = get_permalink($post_id);
-  $subject = 'A post has been published';
   $post_content = get_post_field('post_content', $post_id);
-
-  $message = "A post has been updated on your website:\n\n";
-  $message .= $post_url . "\n";
-  $message .= $content;
 
   $quotations_count = count_quotations($post_content);
   if ($quotations_count > 0){
@@ -118,10 +113,11 @@ function neotext_hook($post_id) {
     if (!filter_var($post_url, FILTER_VALIDATE_URL) === false) {
         post_to_neotext($post_url);
     } else {
-        echo("Post ULR <$url> is not a valid URL");
+        # todo: add better error handling
+        # https://github.com/neotext/neotext-wordpress/issues/4
+        echo("Post ULR <$post_url> is not a valid URL");
     }
   }
-  wp_mail( 'timlangeman@gmail.com', $subject, $message );
 }
 
 add_action( 'publish_post', 'neotext_hook', 10, 2 );
