@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Neotext
- * @version 0.42
+ * @version 0.43
  */
 /*
 Plugin Name: Neotext Quote-Context
@@ -9,10 +9,10 @@ Plugin URI: http://www.neotext.net
 
 Description: Expands "blockquotes" with surrounding text by : selecting all "blockquote" tags that have a "cite" attribute, downloading the cited url, locating the citation, saving the "before" and "after" text into a json file, and adding the retrieved text to the dom.  Submits Quotations from Published posts to the Neotext web service.
 Author: Tim Langeman
-Version: 0.42
-Author URI: http://www.openpolitics.com/tim
+Version: 0.43
+Author URI: https://www.openpolitics.com/tim
 */
-$plugin_version_num = "0.42";
+$plugin_version_num = "0.43";
 
 function neotext_quote_context_header() {
  # Add javascript depencencies to html header
@@ -103,8 +103,14 @@ function neotext_hook($post_id) {
    * a URL of valid format
    */
   $quotations_count = 0;
+  $email_to_notify = 'your-email@example.com';
   $post_url = get_permalink($post_id);
+  $subject = 'A Neotext has been published';
   $post_content = get_post_field('post_content', $post_id);
+
+  $message = "A neotext has been updated on your website:\n\n";
+  $message .= $post_url . "\n";
+  $message .= $content;
 
   $quotations_count = count_quotations($post_content);
   if ($quotations_count > 0){
@@ -112,10 +118,10 @@ function neotext_hook($post_id) {
     # Make Sure the Post URL is of Valid Form
     if (!filter_var($post_url, FILTER_VALIDATE_URL) === false) {
         post_to_neotext($post_url);
+		/****  UnComment this notification to be notified of every webservice call ****/
+		/* wp_mail( email_to_notify, $subject, $message ); */
     } else {
-        # todo: add better error handling
-        # https://github.com/neotext/neotext-wordpress/issues/4
-        echo("Post ULR <$post_url> is not a valid URL");
+        echo("Post ULR <$url> is not a valid URL");
     }
   }
 }
