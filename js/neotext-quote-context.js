@@ -3,7 +3,7 @@
  * https://github.com/neotext/neotext-quote-context/
  *
  * Copyright 2015-2016, Tim Langeman
- * http://www.openpolitics.com/tim
+ * https://www.openpolitics.com/tim
  *
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
@@ -51,7 +51,7 @@ jQuery.fn.quoteContext = function() {
 				var url_quote_text = trim_encode(citing_quote) + '|' + trim_encode(citing_url) + '|' + trim_encode(cited_url);
 				var quote_hash = Sha1.hash(url_quote_text);
 				var shard = quote_hash.substring(0,2);
-				var read_base = 'http://read.neotext.net/quote/';
+				var read_base = 'https://read.neotext.net/quote/';
 				var read_url = read_base.concat("sha1/", version_num, "/", shard, "/", quote_hash, ".json");
 				var json = null;
 
@@ -205,5 +205,3 @@ function extractDomain(url) {
 
     return domain;
 }
-
-

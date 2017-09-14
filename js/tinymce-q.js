@@ -1,5 +1,3 @@
-// Credit: Tomasz Dziuda: https://www.gavick.com/blog/wordpress-tinymce-custom-buttons
-
 (function() {
 	tinymce.PluginManager.add('neotext_q', function( editor, url ) {
 		editor.addButton('neotext_q', {
