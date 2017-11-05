@@ -48,7 +48,7 @@ jQuery.fn.quoteContext = function() {
 			// If they have a cite tag, check to see if its hash is already saved
 			if (cited_url.length > 3){
 				var tag_type = jQuery(this)[0].tagName.toLowerCase();
-				var url_quote_text = trim_encode(citing_quote) + '|' + trim_encode(citing_url) + '|' + trim_encode(cited_url);
+				var url_quote_text = convert_special_characters(citing_quote) + '|' + trim_encode(citing_url) + '|' + trim_encode(cited_url);
 				var quote_hash = Sha1.hash(url_quote_text);
 				var shard = quote_hash.substring(0,2);
 				var read_base = 'https://read.neotext.net/quote/';
@@ -176,18 +176,19 @@ function close_popup(hidden_popup_id){
 	jQuery(hidden_popup_id).dialog("close");
 }
 
-//Source: http://stackoverflow.com/questions/10032024/how-to-remove-leading-and-trailing-white-spaces-from-a-given-html-string
-// Credit:  KhanSharp:  (used for backward compatibility.
-//          trim() introduced in javascript 1.8.1)
-function trim_regex(str){
-  return str.replace(/^[ ]+|[ ]+$/g,'')
-}
-
 function trim_encode(str){
-	 //trimmed_str = trim_regex(str);
    return str.trim();
 }
 
+function convert_special_characters(content) {
+    replace_text = ['\n', '’', ',', '.' , '-', ':', '/', '!', '`', '~', '^',
+		' ', '&nbsp', '\xa0'
+    ]
+    for txt in replace_text{
+        content = content.replace(txt, '')
+	}
+    return content
+} 
 
 // Credit: http://stackoverflow.com/questions/8498592/extract-root-domain-name-from-string
 function extractDomain(url) {
