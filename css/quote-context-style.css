@@ -18,7 +18,8 @@ span.blockquote {
 }
 
 div.quote_arrows a, q, q a, span.q  {
-	color: #be1e2d;						/* maroon: Credit: http://meta.stackoverflow.com */
+	color: #1e90ff;						/* maroon: Credit: http://meta.stackoverflow.com */
+	/* color: #e1e2d;	*/					/* maroon: Credit: http://meta.stackoverflow.com */
 }
 
 q, q a, span.q {
@@ -75,7 +76,7 @@ div.highslide-maincontent a{
 /* blockquote style */
 div.quote_arrows {
 	text-align: center;
-	color: #ccc;
+	color: #0ebfe9; /* #1e90ff; */
 }
 
 div.quote_context {
@@ -85,5 +86,6 @@ div.quote_context {
 blockquote.quote_context {
 	border-left-color: #fff;
 	border-left-width: 0px;
-	color: #999;
+    font-style: italic;
+	color: #333;
 }
