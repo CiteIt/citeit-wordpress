@@ -93,11 +93,16 @@ jQuery.fn.quoteContext = function() {
 					}
 					else if ( tag_type == "blockquote"){
 						//Fill 'before' and 'after' divs and then quickly hide them
-						blockcite.before("<div id='quote_before_" + json['sha1'] + "' class='quote_context'> \
-							<blockquote class='quote_context'>.. " + json["cited_context_before"] + "</blockquote></div>");
+						blockcite.before(" \
+							<div id='quote_before_" + json['sha1'] + "' class='quote_context'> \
+							  <blockquote class='quote_context'>.. " + json["cited_context_before"] + "</blockquote> \
+							</div> \
+						");
 
 						blockcite.after("<div id='quote_after_" + json['sha1'] + "' class='quote_context'> \
-							<blockquote class='quote_context'>" + json["cited_context_after"] + " ..</blockquote></div>");
+							<blockquote class='quote_context'>" + json["cited_context_after"] + " ..</blockquote></div> \
+							<div class='neotext_source'><span class='neotext_source_label'>source: </span> \
+							<a class='neotext_source_domain' href='" + json['cited_url'] + "'>" + extractDomain( json['cited_url'] ) + "</a></div>");
 
 						var context_before = jQuery("#quote_before_" + json['sha1']);
 						var context_after = jQuery("#quote_after_" + json['sha1']);
@@ -251,4 +256,18 @@ function normalize_text(str, replace_chars_array){
 function quote_hash(citing_quote, citing_url, cited_url){
 	var url_quote_text = escape_quote(citing_quote) + '|' + escape_url(citing_url) + '|' + escape_url(cited_url);
 	return Sha1.hash(url_quote_text);
+}
+function extractDomain(url) {
+    var domain;
+    //find & remove protocol (http, ftp, etc.) and get domain
+    if (url.indexOf("://") > -1) {
+        domain = url.split('/')[2];
+    }
+    else {
+        domain = url.split('/')[0];
+    }
+
+    //find & remove port number
+    domain = domain.split(':')[0];
+    return domain;
 }
