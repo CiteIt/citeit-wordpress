@@ -1,24 +1,24 @@
 <?php
 /**
- * @package Neotext
- * @version 0.43
+ * @package CiteIt
+ * @version 0.51
  */
 /*
-Plugin Name: Neotext Quote-Context
-Plugin URI: http://www.neotext.net
+Plugin Name: CiteIt Quote-Context
+Plugin URI: http://www.CiteIt.net
 
-Description: Expands "blockquotes" with surrounding text by : selecting all "blockquote" tags that have a "cite" attribute, downloading the cited url, locating the citation, saving the "before" and "after" text into a json file, and adding the retrieved text to the dom.  Submits Quotations from Published posts to the Neotext web service.
+Description: Expands "blockquotes" with surrounding text by : selecting all "blockquote" tags that have a "cite" attribute, downloading the cited url, locating the citation, saving the "before" and "after" text into a json file, and adding the retrieved text to the dom.  Submits Quotations from Published posts to the CiteIt.net web service.
 Author: Tim Langeman
-Version: 0.43
-Author URI: https://www.openpolitics.com/tim
+Version: 0.51
+Author URI: http://www.openpolitics.com/tim
 */
-$plugin_version_num = "0.43";
+$plugin_version_num = "0.51";
 
 function neotext_quote_context_header() {
  # Add javascript depencencies to html header
 	wp_enqueue_script('jquery');
-    wp_enqueue_script('sha1', plugins_url('lib/sha1.js', __FILE__) );
-    wp_enqueue_script('quote-context', plugins_url('js/neotext-quote-context.js', __FILE__) );
+    wp_enqueue_script('sha256', plugins_url('lib/forge-sha256/build/forge-sha256.min.js', __FILE__) );
+    wp_enqueue_script('quote-context', plugins_url('js/versions/0.3/CiteIt-quote-context.js', __FILE__) );
 }
 
 function neotext_quote_context_hack(){
@@ -51,9 +51,9 @@ add_action( 'wp_footer', 'neotext_quote_context_footer');
 function post_to_neotext($post_url){
   // Post $url to $webservice_url using curl
 
-  $webservice_url = "http://write.neotext.net/";
+  $webservice_url = "http://write.citeit.net/";
   $post_fields = 'url=' . $post_url;
-  $curl_user_agent = "Neotext Wordpress v" . $plugin_version_num . " (http://www.neotext.net)";
+  $curl_user_agent = "CiteIt.net Wordpress v" . $plugin_version_num . " (http://www.CiteIt.net)";
 
   $ch = curl_init( $webservice_url );
   curl_setopt($ch,CURLOPT_USERAGENT, $curl_user_agent);
@@ -69,7 +69,7 @@ function post_to_neotext($post_url){
 
 function count_quotations($html){
   /* Count the number of quotations using the 'cite' tag
-  * (Used to determine if URL should be submitted to Neotext)
+  * (Used to determine if URL should be submitted to CiteIt.net)
   *
   * Credit: http://htmlparsing.com/php.html
   */
@@ -103,12 +103,11 @@ function neotext_hook($post_id) {
    * a URL of valid format
    */
   $quotations_count = 0;
-  $email_to_notify = 'your-email@example.com';
   $post_url = get_permalink($post_id);
-  $subject = 'A Neotext has been published';
+  $subject = 'A CiteIt has been published';
   $post_content = get_post_field('post_content', $post_id);
 
-  $message = "A neotext has been updated on your website:\n\n";
+  $message = "A CiteIt has been updated on your website:\n\n";
   $message .= $post_url . "\n";
   $message .= $content;
 
@@ -118,8 +117,7 @@ function neotext_hook($post_id) {
     # Make Sure the Post URL is of Valid Form
     if (!filter_var($post_url, FILTER_VALIDATE_URL) === false) {
         post_to_neotext($post_url);
-		/****  UnComment this notification to be notified of every webservice call ****/
-		/* wp_mail( email_to_notify, $subject, $message ); */
+		wp_mail( 'timlangeman@gmail.com', $subject, $message );
     } else {
         echo("Post ULR <$url> is not a valid URL");
     }
@@ -129,12 +127,12 @@ function neotext_hook($post_id) {
 add_action( 'publish_post', 'neotext_hook', 10, 2 );
 
 /***************** Add TinyMCE Admin Buttons ********************/
-# Tiny MCE: add Custom Neotext button to editor
+# Tiny MCE: add Custom CiteIt button to editor
 # Credit: AJ Clarke: http://www.wpexplorer.com/wordpress-tinymce-tweaks/
 
 # Button 1: Declare script for new button: blockquote
 function neotext_add_tinymce_blockquote_plugin( $plugin_array ) {
-	$plugin_array['neotext_blockquote'] = plugins_url('/neotext/js/tinymce-blockquote.js');
+	$plugin_array['neotext_blockquote'] = plugins_url('/CiteIt/js/tinymce-blockquote.js');
 	return $plugin_array;
 }
 
@@ -145,7 +143,7 @@ function neotext_register_tinymce_blockquote( $buttons ) {
 
 # Button 2: Declare script for new button: q
 function neotext_add_tinymce_q_plugin( $plugin_array ) {
-	$plugin_array['neotext_q'] = plugins_url('/neotext/js/tinymce-q.js');
+	$plugin_array['neotext_q'] = plugins_url('/CiteIt/js/tinymce-q.js');
 	return $plugin_array;
 }
 

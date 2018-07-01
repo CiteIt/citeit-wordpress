@@ -18,12 +18,13 @@ span.blockquote {
 }
 
 div.quote_arrows a, q, q a, span.q  {
-	color: #1e90ff;						/* maroon: Credit: http://meta.stackoverflow.com */
-	/* color: #e1e2d;	*/					/* maroon: Credit: http://meta.stackoverflow.com */
+	/* color: #be1e2d;	*/					/* maroon: Credit: http://meta.stackoverflow.com */
+	color: #0ebfe9;
 }
 
 q, q a, span.q {
-	border-bottom: 1px dotted #444;		/* maroon: Credit: http://meta.stackoverflow.com */
+	/* border-bottom: 1px dotted #444;		 maroon: Credit: http://meta.stackoverflow.com */
+	border-bottom: 1px dotted #0ebfe9;
 }
 
 div.neotext_source {
@@ -76,7 +77,13 @@ div.highslide-maincontent a{
 /* blockquote style */
 div.quote_arrows {
 	text-align: center;
-	color: #0ebfe9; /* #1e90ff; */
+	color: #0ebfe9;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+div.logo div.quote_arrows {
+	line-height: 2;
 }
 
 div.quote_context {
@@ -86,6 +93,5 @@ div.quote_context {
 blockquote.quote_context {
 	border-left-color: #fff;
 	border-left-width: 0px;
-    font-style: italic;
-	color: #333;
+	color: #999;
 }
