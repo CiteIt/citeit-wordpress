@@ -3,7 +3,7 @@
 (function() {
 	tinymce.PluginManager.add('neotext_blockquote', function( editor, url ) {
 		editor.addButton('neotext_blockquote', {
-			text: 'Neotext blockquote',
+			text: 'CiteIt.net blockquote',
 			icon: false,
 			onclick: function() {
                 editor.windowManager.open( {

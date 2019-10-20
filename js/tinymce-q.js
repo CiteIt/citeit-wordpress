@@ -1,7 +1,7 @@
 (function() {
 	tinymce.PluginManager.add('neotext_q', function( editor, url ) {
 		editor.addButton('neotext_q', {
-			text: 'Neotext q',
+			text: 'CiteIt.net q',
 			icon: false,
 			onclick: function() {
                 editor.windowManager.open( {

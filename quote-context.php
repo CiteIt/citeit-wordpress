@@ -1,24 +1,27 @@
 <?php
 /**
  * @package CiteIt
- * @version 0.51
+ * @version 0.50
  */
 /*
-Plugin Name: CiteIt Quote-Context
+Plugin Name: CiteIt.net Quote-Context
 Plugin URI: http://www.CiteIt.net
 
 Description: Expands "blockquotes" with surrounding text by : selecting all "blockquote" tags that have a "cite" attribute, downloading the cited url, locating the citation, saving the "before" and "after" text into a json file, and adding the retrieved text to the dom.  Submits Quotations from Published posts to the CiteIt.net web service.
 Author: Tim Langeman
-Version: 0.51
+Version: 0.52
 Author URI: http://www.openpolitics.com/tim
 */
-$plugin_version_num = "0.51";
+$plugin_version_num = "0.52";
+
 
 function neotext_quote_context_header() {
  # Add javascript depencencies to html header
 	wp_enqueue_script('jquery');
     wp_enqueue_script('sha256', plugins_url('lib/forge-sha256/build/forge-sha256.min.js', __FILE__) );
     wp_enqueue_script('quote-context', plugins_url('js/versions/0.3/CiteIt-quote-context.js', __FILE__) );
+    wp_enqueue_script('jsVideoUrlParser', plugins_url('lib/jsVideoUrlParser/dist/jsVideoUrlParser.min.js', __FILE__) );
+
 }
 
 function neotext_quote_context_hack(){
@@ -101,6 +104,7 @@ function neotext_hook($post_id) {
   /* Determine whether to submit post URL to Neotext,
    * Depending upon whether a quote uses the 'cite' tag with
    * a URL of valid format
+   * 
    */
   $quotations_count = 0;
   $post_url = get_permalink($post_id);
@@ -111,15 +115,18 @@ function neotext_hook($post_id) {
   $message .= $post_url . "\n";
   $message .= $content;
 
+  $example_address = 'your-address@example.com';
+
   $quotations_count = count_quotations($post_content);
   if ($quotations_count > 0){
 
     # Make Sure the Post URL is of Valid Form
     if (!filter_var($post_url, FILTER_VALIDATE_URL) === false) {
-        post_to_neotext($post_url);
-		wp_mail( 'timlangeman@gmail.com', $subject, $message );
+       post_to_neotext($post_url);
+	   // Enable the below mail command to send notifications
+	   // wp_mail($email_address, $subject, $message );
     } else {
-        echo("Post ULR <$url> is not a valid URL");
+       echo("Post URL <$url> is not a valid URL");
     }
   }
 }
@@ -169,5 +176,29 @@ function neotext_add_mce_quotation_buttons() {
 }
 
 add_action('admin_head', 'neotext_add_mce_quotation_buttons');
+
+
+
+function defer_js_async($tag){
+
+
+	function js_async_attr($tag){
+	
+	# Add async to all remaining scripts
+	return str_replace( ' src', ' async="async" src', $tag );
+	}
+	
+	$scripts_to_async = array('jquery.js', 'forge-sha256.min.js', 'CiteIt-quote-context.js');
+	
+	# async scripts
+	foreach($scripts_to_async as $async_script){
+		if(true == strpos($tag, $async_script ) )
+		return str_replace( ' src', ' async="async" src', $tag );	
+	}
+	return $tag;
+}
+add_filter( 'jquery', 'js_async_attr', 10 ); 
+
+
 
 ?>
