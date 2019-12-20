@@ -324,6 +324,7 @@ function normalize_text(str, replace_chars_array){
       replace_chars_array.length > 0)
   ){
   var replace_chars_array = ["\n", "’", ",", "." , "-", ":", "/", "!"
+    , String.fromCharCode(34), String.fromCharCode(39), ";",
     , "`", "~", "^", " ", "&nbsp", "\xa0", "&#8217;"
     , "&#169;", "&copy;", "&#174;"
     , "&reg;", "&#8364;", "&euro;", "&#8482;", "&trade;"
