@@ -12,7 +12,9 @@ div#neotext_container {
 div.ui-dialog, div.ui-widget {
 	display: visible;
 }
-
+.ui-front {
+	z-index: 99999999;
+)
 span.blockquote {
 	color: #555;
 }
@@ -27,10 +29,10 @@ q, q a, span.q {
 	border-bottom: 1px dotted #0ebfe9;
 }
 
-div.neotext_source {
+div.citeit_source {
 	float: right;
 	margin-right: 10%;
-	margin-top: -40px;
+	margin-top: 0px;
 	font-size: 85%;
 }
 
@@ -83,7 +85,7 @@ div.quote_arrows {
 }
 
 div.quote_arrows.context_up {
-	margin: 0 0 -25px 0;
+	margin: 0 0 0 0;
 }
 
 
@@ -121,7 +123,7 @@ a.inline_source {
 /*********** Phone-specific Styles *************/
 @media only screen and (max-width: 768px) {
 
-div.quote_arrows a {
+div.quote_context a {
 	font-size: 150%;						/* make it larger: to select on phone screen */
 }
 span.view_on_youtube {
