@@ -65,7 +65,7 @@ jQuery.fn.quoteContext = function() {
       if (url_provider == "youtube"){
         // Create Canonical Embed URL:
         embed_url = "https://youtube.com/embed/" + url_parsed.id;
-        embed_icon = "<br /><span class='view_on_youtube'>" +
+        embed_icon = "<span class='view_on_youtube'>" +
                      "Expand: Show Video Clip</span>";
         embed_html = "<iframe class='youtube' src='" + embed_url +
                          "' width='560' height='315' " +
@@ -75,7 +75,7 @@ jQuery.fn.quoteContext = function() {
       else if (url_provider == "vimeo") {
         // Create Canonical Embed URL:
         embed_url = "https://player.vimeo.com/video/" + url_parsed.id;
-        embed_icon = "<br ><span class='view_on_youtube'>" +
+        embed_icon = "<span class='view_on_youtube'>" +
                          "Expand: Show Video Clip</span>";
         embed_html = "<iframe class='youtube' src='" + embed_url +
                          "' width='640' height='360' " +
@@ -93,7 +93,7 @@ jQuery.fn.quoteContext = function() {
            embed_html = data['html'];
         });
 
-        embed_icon = "<br ><span class='view_on_youtube'>" +
+        embed_icon = "<span class='view_on_youtube'>" +
                          "Expand: Show SoundCloud Clip</span>";
 
       }
@@ -179,18 +179,18 @@ jQuery.fn.quoteContext = function() {
             if( json.cited_context_before.length > 0){
             context_before.before("<div class='quote_arrows context_up' "+
               "id='context_up_" + json.sha256 + "'> " +
+              "<div id='up_wrap_" + json.sha256 + "'><a href=\"javascript:toggle_quote('before', 'quote_before_" +
+              json.sha256 + "','up');\">&#9650;</a></div>" +
               "<a href=\"javascript:toggle_quote('before', 'quote_before_" +
-                json.sha256 + "');\">&#9650;</a> " +
-                "<a href=\"javascript:toggle_quote('before', 'quote_before_" +
-                json.sha256 + "');\">" +
+              json.sha256 + "');\">" +
               embed_icon + "</a></div>");
             }
 
             if( json.cited_context_after.length > 0){
             context_after.after("<div class='quote_arrows context_down' "+
               "id='context_down_" + json.sha256 +"'> " +
-              "<a href=\"javascript:toggle_quote('after', 'quote_after_" +
-              json.sha256 +"');\">&#9660;</a></div>"
+              "<div id='down_wrap_" + json.sha256 + "','down'><a href=\"javascript:toggle_quote('after', 'quote_after_" +
+              json.sha256 +"','down');\">&#9660;</a></div></div>"
             );
             }
           }
@@ -202,8 +202,13 @@ jQuery.fn.quoteContext = function() {
 
 };
 
-function toggle_quote(section, id){
+function toggle_quote(section, id, position){
   jQuery("#" + id).fadeToggle();
+
+  //rotate icons on click
+  let sha = id.split('_')[2];
+  let parent_div_id = `${position}_warp_${sha}`;
+  jQuery(`#${parent_div_id}`).toggleClass('rotated180');
 }
 
 function expand_popup(tag, hidden_popup_id){
