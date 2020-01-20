@@ -2,7 +2,7 @@
  * Quote-Context JS Library
  * https://github.com/CiteIt/citeit-jquery
  *
- * Copyright 2015-2019, Tim Langeman
+ * Copyright 2015-2020, Tim Langeman
  * http://www.openpolitics.com/tim
  *
  * Licensed under the MIT license:
@@ -24,16 +24,15 @@
  *  - jsVideoUrlParser: https://www.npmjs.com/package/js-video-url-parser
  *
 */
-
-popup_library = "jQuery";
+var popup_library = "jQuery";
 
 // div in footer than holds injected json data, requires css class to hide
-hidden_container = "neotext_container";
-jQuery.curCSS = "jQuery.css";
-version_num = "0.3";
+var hidden_container = "citeit_container";
+//var jQuery.curCSS = "jQuery.css";
+var version_num = "0.4";
 
 // Remove anchor from URL
-current_page_url = window.location.href.split("#")[0];
+var current_page_url = window.location.href.split("#")[0];
 
 jQuery.fn.quoteContext = function() {
   // Add "before" and "after" sections to quote excerpts
@@ -63,9 +62,21 @@ jQuery.fn.quoteContext = function() {
         }
       }
       if (url_provider == "youtube"){
-        // Create Canonical Embed URL:
-        embed_url = "https://youtube.com/embed/" + url_parsed.id;
-        embed_icon = "<span class='view_on_youtube'>" +
+	// Generate YouTube Embed URL
+	var embed_url = urlParser.create({
+	   videoInfo: {
+             provider: url_provider,
+             id: url_parsed.id,
+             mediaType: 'video'
+	   },
+           format: 'long',
+           params: {
+             start: url_parsed.params.start
+	   }
+	});
+
+        // Create Embed iframe 
+        embed_icon = "<br /><span class='view_on_youtube'>" +
                      "Expand: Show Video Clip</span>";
         embed_html = "<iframe class='youtube' src='" + embed_url +
                          "' width='560' height='315' " +
@@ -75,7 +86,7 @@ jQuery.fn.quoteContext = function() {
       else if (url_provider == "vimeo") {
         // Create Canonical Embed URL:
         embed_url = "https://player.vimeo.com/video/" + url_parsed.id;
-        embed_icon = "<span class='view_on_youtube'>" +
+        embed_icon = "<br ><span class='view_on_youtube'>" +
                          "Expand: Show Video Clip</span>";
         embed_html = "<iframe class='youtube' src='" + embed_url +
                          "' width='640' height='360' " +
@@ -90,25 +101,24 @@ jQuery.fn.quoteContext = function() {
           iframe: true
         },
         function(data) {
-           embed_html = data['html'];
+           var embed_html = data.html;
         });
 
-        embed_icon = "<span class='view_on_youtube'>" +
+        embed_icon = "<br ><span class='view_on_youtube'>" +
                          "Expand: Show SoundCloud Clip</span>";
-
       }
+
       // If they have a cite tag, check to see if its hash is already saved
       if (cited_url.length > 3){
         var tag_type = jQuery(this)[0].tagName.toLowerCase();
-        var url_quote_text = escape_quote(citing_quote) + "|" +
-                             escape_url(citing_url) + "|" +
-                             escape_url(cited_url);
-        console.log(url_quote_text);
-        var quote_hash_value = forge_sha256(url_quote_text);
-        var shard = quote_hash_value.substring(0,2);
+        var hash_key = quote_hash_key(citing_quote, citing_url, cited_url);
+	console.log(hash_key);
+	var hash_value = forge_sha256(hash_key);
+	console.log(hash_value);      
+        var shard = hash_value.substring(0,2);
         var read_base = "https://read.citeit.net/quote/";
         var read_url = read_base.concat("sha256/", version_num, "/",
-                          shard, "/", quote_hash_value, ".json");
+                       shard, "/", hash_value, ".json");
         var json = null;
 
         //See if a json summary of this quote was already created
@@ -128,6 +138,8 @@ jQuery.fn.quoteContext = function() {
               }
           });
 
+
+	// Add Hidden div with context to DOM
         function add_quote_to_dom(tag_type, json ) {
           if ( tag_type == "q"){
             var q_id = "hidden_" + json.sha256;
@@ -162,9 +174,9 @@ jQuery.fn.quoteContext = function() {
               "' class='quote_context'>" +
               "<blockquote class='quote_context'>" +
                 json.cited_context_after + " ..</blockquote></div>" +
-              "<div class='neotext_source'>" +
-              "<span class='neotext_source_label'>source: </span> " +
-                "<a class='neotext_source_domain' href='" + json.cited_url +
+              "<div class='citeit_source'>" +
+              "<span class='citeit_source_label'>source: </span> " +
+                "<a class='citeit_source_domain' href='" + json.cited_url +
                 "'>" + extractDomain( json.cited_url ) +
               "</a></div>"
             );
@@ -176,25 +188,28 @@ jQuery.fn.quoteContext = function() {
             context_after.hide();
 
             //Display arrows if content is found
-            if( json.cited_context_before.length > 0){
-            context_before.before("<div class='quote_arrows context_up' "+
+            if (json.cited_context_before.length > 0){
+
+	      context_before.before("<div class='quote_arrows context_up' "+
               "id='context_up_" + json.sha256 + "'> " +
-              "<div id='up_wrap_" + json.sha256 + "'><a href=\"javascript:toggle_quote('before', 'quote_before_" +
-              json.sha256 + "','up');\">&#9650;</a></div>" +
               "<a href=\"javascript:toggle_quote('before', 'quote_before_" +
-              json.sha256 + "');\">" +
+                json.sha256 + "');\">&#9650;</a> " +
+                "<a href=\"javascript:toggle_quote('before', 'quote_before_" +
+                json.sha256 + "');\">" +
               embed_icon + "</a></div>");
             }
 
-            if( json.cited_context_after.length > 0){
-            context_after.after("<div class='quote_arrows context_down' "+
+            if (json.cited_context_after.length > 0){
+             context_after.after("<div class='quote_arrows context_down' "+
               "id='context_down_" + json.sha256 +"'> " +
-              "<div id='down_wrap_" + json.sha256 + "','down'><a href=\"javascript:toggle_quote('after', 'quote_after_" +
-              json.sha256 +"','down');\">&#9660;</a></div></div>"
+              "<a href=\"javascript:toggle_quote('after', 'quote_after_" +
+              json.sha256 +"');\">&#9660;</a></div>"
             );
             }
-          }
-        }
+
+          } // elseif (tag_type == 'blockquote')
+        } // end: function add_quote_to_dom
+
 
       } // if url.length is not blank
     }  // if "this" has a "cite" attribute
@@ -202,20 +217,13 @@ jQuery.fn.quoteContext = function() {
 
 };
 
-function toggle_quote(section, id, position){
+function toggle_quote(section, id){
   jQuery("#" + id).fadeToggle();
-
-  //rotate icons on click
-  let sha = id.split('_')[2];
-  let parent_div_id = `${position}_warp_${sha}`;
-  jQuery(`#${parent_div_id}`).toggleClass('rotated180');
 }
 
 function expand_popup(tag, hidden_popup_id){
-  if (popup_library == "highslide"){
-  return hs.htmlExpand(tag, {maincontentId: hidden_popup_id });
-  }
-  else {
+
+  // Configure jQuery Popup Library
   jQuery.curCSS = jQuery.css;
 
   // Setup Initial Dialog box
@@ -246,12 +254,12 @@ function expand_popup(tag, hidden_popup_id){
   jQuery(document).mouseup(function(e) {
     var popupbox = jQuery(".ui-widget-overlay");
     if (popupbox.has(e.target).length === 0){
-       //$("#" + hidden_popup_id).dialog("close");
+      // Uncomment line below to close popup when you click outside it
+      //$("#" + hidden_popup_id).dialog("close");
     }
   });
 
   return false; // Don't follow link
-  }
 }
 
 function close_popup(hidden_popup_id){
@@ -259,104 +267,97 @@ function close_popup(hidden_popup_id){
   jQuery(hidden_popup_id).dialog("close");
 }
 
+function trim_regex(str){
 //Source: http://stackoverflow.com/questions/10032024/how-to-remove-leading-and-trailing-white-spaces-from-a-given-html-string
 // Credit:  KhanSharp:  (used for backward compatibility.
-//          trim() introduced in javascript 1.8.1)
+// trim() was introduced in javascript 1.8.1)
+  return str.replace(/^[ ]+|[ ]+$/g,"");
+}
 
-function trim_regex(str){
-  return str.replace(/^[ ]+|[ ]+$/g,"")
+function url_without_protocol(url){
+  // Remove http(s):// and trailing slash
+  // Before: https://www.example.com/blog/first-post/
+  // After:  www.example.com/blog/first-post
+
+  var url_without_trailing_slash = url.replace(/\/$/, "");
+  var url_without_protocol = url_without_trailing_slash.replace(/^https?\:\/\//i, "");
+
+  return url_without_protocol;
 }
 
 function escape_url(str){
-  var replace_chars_array = [
-    "\n", " ", "&nbsp",
-  ];
-  str = trim_regex(str);   // remove whitespace at beginning and end
+  // This is a list of Unicode character points that should be filtered out from the quote hash
+  // This list should match the webservice settings: 
+  // * https://github.com/CiteIt/citeit-webservice/blob/master/app/settings-default.py
+  //   - URL_ESCAPE_CODE_POINTS
 
-  return normalize_text(str, replace_chars_array);
+  var replace_chars = new Set([
+    10, 20, 160
+  ]);
 
+  // str = trim_regex(str);   // remove whitespace at beginning and end
+  return normalize_text(str, replace_chars);
 }
 
 function escape_quote(str){
-  var replace_chars_array = [" ", "\n", "â€™", ",", ".", "-", "–", "-"
-            , "-", "—", ":", "/", "!", "`", "~", "^", "’"
-            , String.fromCharCode(34), String.fromCharCode(39), ";",
-            , "&nbsp", "\xa0", "&#8217;"
-            , "&#169;", "&copy;", "&#174;"
-            , "&reg;", "&#8364;", "&euro;", "&#8482;", "&trade;"
-            , "&lsquo;", "&rsquo;", "&sbquo;", "&ldquo;", "&rdquo;", "&bdquo;"
-            , "&#34;", "&quot;", "&#38;", "&amp;", "&#39;", "&#163;", "&pound;"
-            , "&#165;", "&yen;", "&#168;", "&uml;", "&die;", "&#169;", "&copy;"
-            , "\u201c", "“", "”", "‘", "’", "’",
-            , "&#8217;", "&#8230;",
-        ];
+  // This is a list of Unicode character points that should be filtered out from the quote hash
+  // This list should match the webservice settings: 
+  // * https://github.com/CiteIt/citeit-webservice/blob/master/app/settings-default.py
+  //   - TEXT_ESCAPE_CODE_POINTS
 
-  return normalize_text(str, replace_chars_array);
+  var replace_chars = new Set([ 
+    2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 
+    , 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 39 
+    , 96, 160, 173, 699, 700, 701, 702, 703, 712, 713, 714, 715, 716 
+    , 717, 718, 719, 732, 733, 750, 757, 8211, 8212, 8213, 8216, 8217 
+    , 8219, 8220, 8221, 8226, 8203, 8204, 8205, 65279, 8232, 8233, 133 
+    , 5760, 6158, 8192, 8193, 8194, 8195, 8196, 8197, 8198, 8199, 8200 
+    , 8201, 8202, 8239, 8287, 8288, 12288 
+  ]);
+
+  return normalize_text(str, replace_chars);
 }
 
-// Credit: Sean Bright, MC Emperor
-// https://stackoverflow.com/questions/1144783/how-to-replace-all-occurrences-of-a-string-in-javascript
-function escapeRegExp(str) {
-  if (typeof str != "undefined"){
-      return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+function normalize_text(str, escape_code_points){
+  /* This javascript function performs the same functionality as the
+     python method: citeit_quote_context.text_convert.escape()
+
+     It removes an array of symbols from the input str
+  */
+ 
+  var str_return = '';                //default: empty string
+  var input_code_point = -1;
+  var str_array = stringToArray(str); // convert string to array
+
+  for (idx in str_array){
+    // Get Unicode Code Point of Current Character
+    chr = str_array[idx];
+    chr_code = chr.codePointAt(0);
+    input_code_point = chr.codePointAt(0); 
+
+    // Only Include this character if it is not in the supplied set of escape_code_points
+    if(!(escape_code_points.has(input_code_point))){
+      str_return += chr;  // Add this character
+    }
   }
-  else {
-    return "";
-  }
+
+  return str_return;
 }
-function replace_all(str, find, replace) {
-  if (typeof str != "undefined"){
-    return str.replace(new RegExp(escapeRegExp(find), "g"), replace);
-  }
-  else {
-    return "";
-  }
+
+function quote_hash_key(citing_quote, citing_url, cited_url){
+  var quote_hash =  escape_quote(citing_quote) + "|" +
+ 		    url_without_protocol(escape_url(citing_url)) + "|" +
+		    url_without_protocol(escape_url(cited_url));
+	
+  return quote_hash;
 }
-function normalize_text(str, replace_chars_array){
-  /*  This javascript function performs the same functionality as the
-    python method: neotext_quote_context.utility.text.normalize()
 
-    It replaces an array of symbols found within the input string
-    with the specified replacement character(s).
-    By default, the replacement_char is an empty string, meaning this function
-    removes all of replace_chars from the text.
- */
-
-  // Default to empty string
-  replacement_char = "";
-
-  // If no array passed, set default
-  if (!(typeof replace_chars_array !== "undefined" &&
-      replace_chars_array.length > 0)
-  ){
-  var replace_chars_array = ["\n", "’", ",", "." , "-", ":", "/", "!"
-    , String.fromCharCode(34), String.fromCharCode(39), ";",
-    , "`", "~", "^", " ", "&nbsp", "\xa0", "&#8217;"
-
-    , "&#169;", "&copy;", "&#174;"
-    , "&reg;", "&#8364;", "&euro;", "&#8482;", "&trade;"
-    , "&lsquo;", "&rsquo;", "&sbquo;", "&ldquo;", "&rdquo;", "&bdquo;"
-    , "&#34;", "&quot;", "&#38;", "&amp;", "&#39;", "&#163;", "&pound;"
-    , "&#165;", "&yen;", "&#168;", "&uml;", "&die;", "&#169;", "&copy;"
-    , '\u201c', '“', '”', "‘", "’", '’'
-    , '&#8217;', '&#8230;',
-    ];
-  }
-
-  // loop through replace_chars with "old school" loop,
-  // for maximum browser compatibility
-  var index;
-  for (index = 0; index < replace_chars_array.length; ++index) {
-  str = replace_all(str, replace_chars_array[index], replacement_char); 
-  }
-  return str;
-}
 function quote_hash(citing_quote, citing_url, cited_url){
-  var url_quote_text = escape_quote(citing_quote) + "|" +
-                       escape_url(citing_url) + "|" +
-                       escape_url(cited_url);
-  return forge_sha256(url_quote_text);
+  var url_quote_text = quote_hash_key(citing_quote, citing_url, cited_url);
+  var quote_hash = forge_sha256(url_quote_text);  // sha256 library:https://github.com/brillout/forge-sha256 
+  return quote_hash;
 }
+
 function extractDomain(url) {
     var domain;
     //find & remove protocol (http, ftp, etc.) and get domain
@@ -370,4 +371,15 @@ function extractDomain(url) {
     //find & remove port number
     domain = domain.split(":")[0];
     return domain;
+}
+
+function stringToArray(s) {
+// Credit: https://medium.com/@giltayar/iterating-over-emoji-characters-the-es6-way-f06e4589516
+// convert string to Array
+  const retVal = [];
+	  
+  for (const ch of s) {
+    retVal.push(ch);
+		    }
+  return retVal;
 }
