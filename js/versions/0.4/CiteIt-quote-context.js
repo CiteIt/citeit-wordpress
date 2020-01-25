@@ -56,27 +56,27 @@ jQuery.fn.quoteContext = function() {
       console.log("cited_url: " + cited_url);
 
       var url_parsed = urlParser.parse(cited_url);
-      if (!(typeof url_parsed === 'undefined')) {
+      if (!(typeof url_parsed === "url_parsed")) {
         if (url_parsed.hasOwnProperty("provider")){
           url_provider = url_parsed.provider;
         }
       }
       if (url_provider == "youtube"){
-	// Generate YouTube Embed URL
-	var embed_url = urlParser.create({
+    // Generate YouTube Embed URL
+    var embed_url = urlParser.create({
 	   videoInfo: {
              provider: url_provider,
              id: url_parsed.id,
-             mediaType: 'video'
+             mediaType: "video"
 	   },
-           format: 'long',
+           format: "long",
            params: {
              start: url_parsed.params.start
 	   }
-	});
+    });
 
         // Create Embed iframe 
-        embed_icon = "<br /><span class='view_on_youtube'>" +
+        embed_icon = "<span class='view_on_youtube'>" +
                      "Expand: Show Video Clip</span>";
         embed_html = "<iframe class='youtube' src='" + embed_url +
                          "' width='560' height='315' " +
@@ -86,7 +86,7 @@ jQuery.fn.quoteContext = function() {
       else if (url_provider == "vimeo") {
         // Create Canonical Embed URL:
         embed_url = "https://player.vimeo.com/video/" + url_parsed.id;
-        embed_icon = "<br ><span class='view_on_youtube'>" +
+        embed_icon = "<span class='view_on_youtube'>" +
                          "Expand: Show Video Clip</span>";
         embed_html = "<iframe class='youtube' src='" + embed_url +
                          "' width='640' height='360' " +
@@ -96,16 +96,16 @@ jQuery.fn.quoteContext = function() {
       else if (url_provider == "soundcloud") {
         // Webservice Query: Get Embed Code
         $.getJSON('http://soundcloud.com/oembed?callback=?',
-        { format: 'js', 
-          url: cited_url, 
+        { format: "js", 
+          url: cited_url,
           iframe: true
         },
         function(data) {
            var embed_html = data.html;
         });
 
-        embed_icon = "<br ><span class='view_on_youtube'>" +
-                         "Expand: Show SoundCloud Clip</span>";
+        embed_icon = "<span class='view_on_youtube'>" +
+                      "Expand: Show SoundCloud Clip</span>";
       }
 
       // If they have a cite tag, check to see if its hash is already saved
@@ -192,18 +192,20 @@ jQuery.fn.quoteContext = function() {
 
 	      context_before.before("<div class='quote_arrows context_up' "+
               "id='context_up_" + json.sha256 + "'> " +
+              "<div id='up_wrap_" + json.sha256 + "'><a href=\"javascript:toggle_quote('before', 'quote_before_" +
+              json.sha256 + "','up');\">&#9650;</a></div>" +
               "<a href=\"javascript:toggle_quote('before', 'quote_before_" +
-                json.sha256 + "');\">&#9650;</a> " +
-                "<a href=\"javascript:toggle_quote('before', 'quote_before_" +
                 json.sha256 + "');\">" +
               embed_icon + "</a></div>");
             }
 
             if (json.cited_context_after.length > 0){
-             context_after.after("<div class='quote_arrows context_down' "+
+            context_after.after("<div class='quote_arrows context_down' "+
               "id='context_down_" + json.sha256 +"'> " +
               "<a href=\"javascript:toggle_quote('after', 'quote_after_" +
               json.sha256 +"');\">&#9660;</a></div>"
+              "<div id='down_wrap_" + json.sha256 + "','down'><a href=\"javascript:toggle_quote('after', 'quote_after_" +
+              json.sha256 +"','down');\">&#9660;</a></div></div>"
             );
             }
 
@@ -219,6 +221,11 @@ jQuery.fn.quoteContext = function() {
 
 function toggle_quote(section, id){
   jQuery("#" + id).fadeToggle();
+
+  //rotate icons on click
+  let sha = id.split('_')[2];
+  let parent_div_id = "${position}_warp_${sha}";
+  jQuery("#${parent_div_id}").toggleClass("rotated180");
 }
 
 function expand_popup(tag, hidden_popup_id){
@@ -335,7 +342,8 @@ function normalize_text(str, escape_code_points){
     chr_code = chr.codePointAt(0);
     input_code_point = chr.codePointAt(0); 
 
-    // Only Include this character if it is not in the supplied set of escape_code_points
+    // Only Include this character if it is not in the 
+	// supplied set of escape_code_points
     if(!(escape_code_points.has(input_code_point))){
       str_return += chr;  // Add this character
     }
@@ -354,7 +362,7 @@ function quote_hash_key(citing_quote, citing_url, cited_url){
 
 function quote_hash(citing_quote, citing_url, cited_url){
   var url_quote_text = quote_hash_key(citing_quote, citing_url, cited_url);
-  var quote_hash = forge_sha256(url_quote_text);  // sha256 library:https://github.com/brillout/forge-sha256 
+  var quote_hash = forge_sha256(url_quote_text);  // https://github.com/brillout/forge-sha256 
   return quote_hash;
 }
 
