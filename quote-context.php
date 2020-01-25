@@ -24,6 +24,16 @@ function citeit_quote_context_header() {
    wp_enqueue_script('jsVideoUrlParser', plugins_url('lib/jsVideoUrlParser/dist/jsVideoUrlParser.min.js', __FILE__) );
 }
 
+function citeit_quote_custom() {
+	wp_register_style(
+    	'citeit_quote_custom', // handle name
+	    plugins_url() . '/CiteIt.net/css/quote-context-style.css',
+		'0.6',
+		''
+	);
+	wp_enqueue_style('citeit_quote_custom');
+}
+
 function citeit_quote_context_hack(){
   echo "
 	<script type='text/javascript'></script>";
@@ -32,8 +42,6 @@ function citeit_quote_context_hack(){
 function citeit_quote_context_footer() {
   # Adds style sheets, ui javascript, hiddend div id="citeit_container"
   # Add call to .quoteContext() custom jQuery function
-
-	wp_enqueue_style('citeit_quote_context_css', plugins_url('css/quote-context-style.css', __FILE__) );
 
 	echo "<div id='citeit_container'><!-- citeit quote-context.js injects data returned from lookup in this hidden div --></div>
     <script type='text/javascript'>
@@ -45,9 +53,9 @@ function citeit_quote_context_footer() {
 	wp_enqueue_style('jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css');
 }
 
-add_action( 'wp_enqueue_scripts', 'citeit_quote_context_header' );
-add_action( 'wp_head', 'citeit_quote_context_hack');
-add_action( 'wp_footer', 'citeit_quote_context_footer');
+function css_hide_type($src) {
+    return str_replace("type='text/css'", '', $src);
+}
 
 /*********** Modify Publish Action: Submit to Citeit.net ******/
 
@@ -192,6 +200,13 @@ function defer_js_async($tag){
 	}
 	return $tag;
 }
+
 add_filter( 'jquery', 'js_async_attr', 10 );
+add_filter('style_loader_tag', 'css_hide_type');
+add_action( 'wp_enqueue_scripts', 'citeit_quote_context_header' );
+add_action( 'wp_head', 'citeit_quote_context_hack');
+
+add_action( 'wp_footer', 'citeit_quote_context_footer');
+add_action( 'wp_footer', 'citeit_quote_custom' );
 
 ?>
