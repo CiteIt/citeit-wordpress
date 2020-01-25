@@ -10,11 +10,14 @@ div#neotext_container {
 }
 
 div.ui-dialog, div.ui-widget {
-	display: visible;
+	visibility: visible;
+	display: block;
 }
+
 .ui-front {
 	z-index: 99999999;
-)
+}
+
 span.blockquote {
 	color: #555;
 }
@@ -32,8 +35,9 @@ q, q a, span.q {
 div.citeit_source {
 	float: right;
 	margin-right: 10%;
-	margin-top: 0px;
+	margin-top: -45px;
 	font-size: 85%;
+	
 }
 
 span.neotext_source_label {
@@ -50,7 +54,7 @@ div#demo_content {
 
 .ui-draggable .ui-dialog-titlebar {
 	font-size: 14px;
-	font-weight: 0;
+	font-weight: 100;
 }
 
 .ui-dialog-content {
