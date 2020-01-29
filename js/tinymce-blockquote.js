@@ -1,8 +1,8 @@
 // Credit: Tomasz Dziuda: https://www.gavick.com/blog/wordpress-tinymce-custom-buttons
 
 (function() {
-	tinymce.PluginManager.add('neotext_blockquote', function( editor, url ) {
-		editor.addButton('neotext_blockquote', {
+	tinymce.PluginManager.add('citeit_blockquote', function( editor, url ) {
+		editor.addButton('citeit_blockquote', {
 			text: 'CiteIt.net blockquote',
 			icon: false,
 			onclick: function() {

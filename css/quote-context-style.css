@@ -5,16 +5,15 @@
 */
 
 /* Hidden div at the bottom of the page that houses a copy of the json data */
-div#neotext_container {
+div#citeit_container {
 	display:none;
 }
 
 div.ui-dialog, div.ui-widget {
 	display: visible;
+	z-index: 999999;
 }
-.ui-front {
-	z-index: 99999999;
-)
+
 span.blockquote {
 	color: #555;
 }
@@ -32,11 +31,11 @@ q, q a, span.q {
 div.citeit_source {
 	float: right;
 	margin-right: 10%;
-	margin-top: 0px;
+	margin-top: -40px;
 	font-size: 85%;
 }
 
-span.neotext_source_label {
+span.citeit_source_label {
 	padding-right: 7px;
 	padding-left: 10px;
   color: #999;
@@ -55,7 +54,6 @@ div#demo_content {
 
 .ui-dialog-content {
 	font-size: 14px;
-	color: red;
 }
 
 /* Position Demo */
@@ -81,15 +79,15 @@ div.highslide-maincontent a{
 }
 
 /* blockquote style */
-div.quote_arrows {
+div.quote_contexts {
 	text-align: center;
 	color: #0ebfe9;
 	font-size: 16px;
 	line-height: 1.5;
 }
 
-div.quote_arrows.context_up {
-	margin: 0 0 0 0;
+div.quote_contexts.context_up {
+	margin: 0 0 -25px 0;
 }
 
 
@@ -105,6 +103,7 @@ blockquote.quote_context {
 	border-left-color: #fff;
 	border-left-width: 0px;
 	color: #999;
+	margin-top: -20px;  /* Expand video */
 }
 
 div.source_info {
@@ -124,10 +123,14 @@ a.inline_source {
   margin-left: 20px;
 }
 
+.rotated180{
+  transform: rotateX(180deg);
+}
+
 /*********** Phone-specific Styles *************/
 @media only screen and (max-width: 768px) {
 
-div.quote_context a {
+div.quote_arrows a {
 	font-size: 150%;						/* make it larger: to select on phone screen */
 }
 span.view_on_youtube {

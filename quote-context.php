@@ -16,6 +16,8 @@ Author URI: http://www.openpolitics.com/tim
 $plugin_version_num = "0.60";
 $webservice_version_num = "0.4";
 
+
+
 function citeit_quote_context_header() {
    # Add javascript depencencies to html header
    wp_enqueue_script('jquery');
@@ -56,7 +58,7 @@ function post_to_citeit($post_url){
 
   $webservice_url = "http://api.citeit.net/";
   $post_fields = 'url=' . $post_url;
-  $curl_user_agent = "CiteIt.net Wordpress v " . $plugin_version_num . " (http://www.CiteIt.net)";
+  $curl_user_agent = "CiteIt.net Wordpress v" . $plugin_version_num . " (http://www.CiteIt.net)";
 
   $ch = curl_init( $webservice_url );
   curl_setopt($ch,CURLOPT_USERAGENT, $curl_user_agent);

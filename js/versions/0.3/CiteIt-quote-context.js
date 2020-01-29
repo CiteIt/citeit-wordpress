@@ -28,7 +28,7 @@
 popup_library = "jQuery";
 
 // div in footer than holds injected json data, requires css class to hide
-hidden_container = "neotext_container";
+hidden_container = "citeit_container";
 jQuery.curCSS = "jQuery.css";
 version_num = "0.3";
 
@@ -162,9 +162,9 @@ jQuery.fn.quoteContext = function() {
               "' class='quote_context'>" +
               "<blockquote class='quote_context'>" +
                 json.cited_context_after + " ..</blockquote></div>" +
-              "<div class='neotext_source'>" +
-              "<span class='neotext_source_label'>source: </span> " +
-                "<a class='neotext_source_domain' href='" + json.cited_url +
+              "<div class='citeit_source'>" +
+              "<span class='citeit_source_label'>source: </span> " +
+                "<a class='citeit_source_domain' href='" + json.cited_url +
                 "'>" + extractDomain( json.cited_url ) +
               "</a></div>"
             );
@@ -275,7 +275,6 @@ function escape_url(str){
 function escape_quote(str){
   var replace_chars_array = [" ", "\n", "â€™", ",", ".", "-", "–", "-"
             , "-", "—", ":", "/", "!", "`", "~", "^", "’"
-            , String.fromCharCode(34), String.fromCharCode(39), ";",
             , "&nbsp", "\xa0", "&#8217;"
             , "&#169;", "&copy;", "&#174;"
             , "&reg;", "&#8364;", "&euro;", "&#8482;", "&trade;"
@@ -309,7 +308,7 @@ function replace_all(str, find, replace) {
 }
 function normalize_text(str, replace_chars_array){
   /*  This javascript function performs the same functionality as the
-    python method: neotext_quote_context.utility.text.normalize()
+    python method: citeit_quote_context.utility.text.normalize()
 
     It replaces an array of symbols found within the input string
     with the specified replacement character(s).
@@ -325,16 +324,12 @@ function normalize_text(str, replace_chars_array){
       replace_chars_array.length > 0)
   ){
   var replace_chars_array = ["\n", "’", ",", "." , "-", ":", "/", "!"
-    , String.fromCharCode(34), String.fromCharCode(39), ";",
     , "`", "~", "^", " ", "&nbsp", "\xa0", "&#8217;"
-
     , "&#169;", "&copy;", "&#174;"
     , "&reg;", "&#8364;", "&euro;", "&#8482;", "&trade;"
     , "&lsquo;", "&rsquo;", "&sbquo;", "&ldquo;", "&rdquo;", "&bdquo;"
     , "&#34;", "&quot;", "&#38;", "&amp;", "&#39;", "&#163;", "&pound;"
     , "&#165;", "&yen;", "&#168;", "&uml;", "&die;", "&#169;", "&copy;"
-    , '\u201c', '“', '”', "‘", "’", '’'
-    , '&#8217;', '&#8230;',
     ];
   }
 
