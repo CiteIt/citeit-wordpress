@@ -74,6 +74,10 @@ div.highslide-maincontent a{
 	color: #168DD9;
 }
 
+.ui-dialog .ui-dialog-content {
+	z-index: 9999999;
+}
+
 /* blockquote style */
 div.quote_contexts {
 	text-align: center;
