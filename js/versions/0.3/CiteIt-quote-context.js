@@ -28,7 +28,7 @@
 popup_library = "jQuery";
 
 // div in footer than holds injected json data, requires css class to hide
-hidden_container = "neotext_container";
+hidden_container = "citeit_container";
 jQuery.curCSS = "jQuery.css";
 version_num = "0.3";
 
@@ -65,7 +65,7 @@ jQuery.fn.quoteContext = function() {
       if (url_provider == "youtube"){
         // Create Canonical Embed URL:
         embed_url = "https://youtube.com/embed/" + url_parsed.id;
-        embed_icon = "<span class='view_on_youtube'>" +
+        embed_icon = "<br /><span class='view_on_youtube'>" +
                      "Expand: Show Video Clip</span>";
         embed_html = "<iframe class='youtube' src='" + embed_url +
                          "' width='560' height='315' " +
@@ -75,7 +75,7 @@ jQuery.fn.quoteContext = function() {
       else if (url_provider == "vimeo") {
         // Create Canonical Embed URL:
         embed_url = "https://player.vimeo.com/video/" + url_parsed.id;
-        embed_icon = "<span class='view_on_youtube'>" +
+        embed_icon = "<br ><span class='view_on_youtube'>" +
                          "Expand: Show Video Clip</span>";
         embed_html = "<iframe class='youtube' src='" + embed_url +
                          "' width='640' height='360' " +
@@ -93,7 +93,7 @@ jQuery.fn.quoteContext = function() {
            embed_html = data['html'];
         });
 
-        embed_icon = "<span class='view_on_youtube'>" +
+        embed_icon = "<br ><span class='view_on_youtube'>" +
                          "Expand: Show SoundCloud Clip</span>";
 
       }
@@ -162,9 +162,9 @@ jQuery.fn.quoteContext = function() {
               "' class='quote_context'>" +
               "<blockquote class='quote_context'>" +
                 json.cited_context_after + " ..</blockquote></div>" +
-              "<div class='neotext_source'>" +
-              "<span class='neotext_source_label'>source: </span> " +
-                "<a class='neotext_source_domain' href='" + json.cited_url +
+              "<div class='citeit_source'>" +
+              "<span class='citeit_source_label'>source: </span> " +
+                "<a class='citeit_source_domain' href='" + json.cited_url +
                 "'>" + extractDomain( json.cited_url ) +
               "</a></div>"
             );
@@ -179,18 +179,18 @@ jQuery.fn.quoteContext = function() {
             if( json.cited_context_before.length > 0){
             context_before.before("<div class='quote_arrows context_up' "+
               "id='context_up_" + json.sha256 + "'> " +
-              "<div id='up_wrap_" + json.sha256 + "'><a href=\"javascript:toggle_quote('before', 'quote_before_" +
-              json.sha256 + "','up');\">&#9650;</a></div>" +
               "<a href=\"javascript:toggle_quote('before', 'quote_before_" +
-              json.sha256 + "');\">" +
+                json.sha256 + "');\">&#9650;</a> " +
+                "<a href=\"javascript:toggle_quote('before', 'quote_before_" +
+                json.sha256 + "');\">" +
               embed_icon + "</a></div>");
             }
 
             if( json.cited_context_after.length > 0){
             context_after.after("<div class='quote_arrows context_down' "+
               "id='context_down_" + json.sha256 +"'> " +
-              "<div id='down_wrap_" + json.sha256 + "','down'><a href=\"javascript:toggle_quote('after', 'quote_after_" +
-              json.sha256 +"','down');\">&#9660;</a></div></div>"
+              "<a href=\"javascript:toggle_quote('after', 'quote_after_" +
+              json.sha256 +"');\">&#9660;</a></div>"
             );
             }
           }
@@ -202,13 +202,8 @@ jQuery.fn.quoteContext = function() {
 
 };
 
-function toggle_quote(section, id, position){
+function toggle_quote(section, id){
   jQuery("#" + id).fadeToggle();
-
-  //rotate icons on click
-  let sha = id.split('_')[2];
-  let parent_div_id = `${position}_warp_${sha}`;
-  jQuery(`#${parent_div_id}`).toggleClass('rotated180');
 }
 
 function expand_popup(tag, hidden_popup_id){
@@ -280,7 +275,6 @@ function escape_url(str){
 function escape_quote(str){
   var replace_chars_array = [" ", "\n", "â€™", ",", ".", "-", "–", "-"
             , "-", "—", ":", "/", "!", "`", "~", "^", "’"
-            , String.fromCharCode(34), String.fromCharCode(39), ";",
             , "&nbsp", "\xa0", "&#8217;"
             , "&#169;", "&copy;", "&#174;"
             , "&reg;", "&#8364;", "&euro;", "&#8482;", "&trade;"
@@ -314,7 +308,7 @@ function replace_all(str, find, replace) {
 }
 function normalize_text(str, replace_chars_array){
   /*  This javascript function performs the same functionality as the
-    python method: neotext_quote_context.utility.text.normalize()
+    python method: citeit_quote_context.utility.text.normalize()
 
     It replaces an array of symbols found within the input string
     with the specified replacement character(s).
@@ -330,16 +324,12 @@ function normalize_text(str, replace_chars_array){
       replace_chars_array.length > 0)
   ){
   var replace_chars_array = ["\n", "’", ",", "." , "-", ":", "/", "!"
-    , String.fromCharCode(34), String.fromCharCode(39), ";",
     , "`", "~", "^", " ", "&nbsp", "\xa0", "&#8217;"
-
     , "&#169;", "&copy;", "&#174;"
     , "&reg;", "&#8364;", "&euro;", "&#8482;", "&trade;"
     , "&lsquo;", "&rsquo;", "&sbquo;", "&ldquo;", "&rdquo;", "&bdquo;"
     , "&#34;", "&quot;", "&#38;", "&amp;", "&#39;", "&#163;", "&pound;"
     , "&#165;", "&yen;", "&#168;", "&uml;", "&die;", "&#169;", "&copy;"
-    , '\u201c', '“', '”', "‘", "’", '’'
-    , '&#8217;', '&#8230;',
     ];
   }
 

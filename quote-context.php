@@ -16,22 +16,14 @@ Author URI: http://www.openpolitics.com/tim
 $plugin_version_num = "0.60";
 $webservice_version_num = "0.4";
 
+
+
 function citeit_quote_context_header() {
    # Add javascript depencencies to html header
    wp_enqueue_script('jquery');
    wp_enqueue_script('sha256', plugins_url('lib/forge-sha256/build/forge-sha256.min.js', __FILE__) );
    wp_enqueue_script('quote-context', plugins_url('/js/versions/0.4/CiteIt-quote-context.js', __FILE__) );
    wp_enqueue_script('jsVideoUrlParser', plugins_url('lib/jsVideoUrlParser/dist/jsVideoUrlParser.min.js', __FILE__) );
-}
-
-function citeit_quote_custom() {
-	wp_register_style(
-    	'citeit_quote_custom', // handle name
-	    plugins_url() . '/CiteIt.net/css/quote-context-style.css',
-		'0.6',
-		''
-	);
-	wp_enqueue_style('citeit_quote_custom');
 }
 
 function citeit_quote_context_hack(){
@@ -43,6 +35,8 @@ function citeit_quote_context_footer() {
   # Adds style sheets, ui javascript, hiddend div id="citeit_container"
   # Add call to .quoteContext() custom jQuery function
 
+	wp_enqueue_style('citeit_quote_context_css', plugins_url('css/quote-context-style.css', __FILE__) );
+
 	echo "<div id='citeit_container'><!-- citeit quote-context.js injects data returned from lookup in this hidden div --></div>
     <script type='text/javascript'>
 	    // Call plugin on all blockquotes:
@@ -53,9 +47,9 @@ function citeit_quote_context_footer() {
 	wp_enqueue_style('jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css');
 }
 
-function css_hide_type($src) {
-    return str_replace("type='text/css'", '', $src);
-}
+add_action( 'wp_enqueue_scripts', 'citeit_quote_context_header' );
+add_action( 'wp_head', 'citeit_quote_context_hack');
+add_action( 'wp_footer', 'citeit_quote_context_footer');
 
 /*********** Modify Publish Action: Submit to Citeit.net ******/
 
@@ -64,7 +58,7 @@ function post_to_citeit($post_url){
 
   $webservice_url = "http://api.citeit.net/";
   $post_fields = 'url=' . $post_url;
-  $curl_user_agent = "CiteIt.net Wordpress v " . $plugin_version_num . " (http://www.CiteIt.net)";
+  $curl_user_agent = "CiteIt.net Wordpress v" . $plugin_version_num . " (http://www.CiteIt.net)";
 
   $ch = curl_init( $webservice_url );
   curl_setopt($ch,CURLOPT_USERAGENT, $curl_user_agent);
@@ -200,13 +194,6 @@ function defer_js_async($tag){
 	}
 	return $tag;
 }
-
 add_filter( 'jquery', 'js_async_attr', 10 );
-add_filter('style_loader_tag', 'css_hide_type');
-add_action( 'wp_enqueue_scripts', 'citeit_quote_context_header' );
-add_action( 'wp_head', 'citeit_quote_context_hack');
-
-add_action( 'wp_footer', 'citeit_quote_context_footer');
-add_action( 'wp_footer', 'citeit_quote_custom' );
 
 ?>

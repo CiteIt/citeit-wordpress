@@ -1,6 +1,6 @@
 (function() {
-	tinymce.PluginManager.add('neotext_q', function( editor, url ) {
-		editor.addButton('neotext_q', {
+	tinymce.PluginManager.add('citeit_q', function( editor, url ) {
+		editor.addButton('citeit_q', {
 			text: 'CiteIt.net q',
 			icon: false,
 			onclick: function() {
