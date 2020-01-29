@@ -50,63 +50,10 @@ jQuery.fn.quoteContext = function() {
       var embed_icon = "";
       var embed_html = "";
 
-      // Test the URL to see if it is one of the Supported Media Providers:
-      var media_providers = ["youtube","vimeo","soundcloud"];
-      var url_provider = "";
       console.log("cited_url: " + cited_url);
+	  
 
-      var url_parsed = urlParser.parse(cited_url);
-      if (!(typeof url_parsed === "url_parsed")) {
-        if (url_parsed.hasOwnProperty("provider")){
-          url_provider = url_parsed.provider;
-        }
-      }
-      if (url_provider == "youtube"){
-    // Generate YouTube Embed URL
-    var embed_url = urlParser.create({
-	   videoInfo: {
-             provider: url_provider,
-             id: url_parsed.id,
-             mediaType: "video"
-	   },
-           format: "long",
-           params: {
-             start: url_parsed.params.start
-	   }
-    });
-
-        // Create Embed iframe 
-        embed_icon = "<span class='view_on_youtube'>" +
-                     "Expand: Show Video Clip</span>";
-        embed_html = "<iframe class='youtube' src='" + embed_url +
-                         "' width='560' height='315' " +
-                         "frameborder='0' allowfullscreen='allowfullscreen'>" +
-                     "</iframe>";
-      }
-      else if (url_provider == "vimeo") {
-        // Create Canonical Embed URL:
-        embed_url = "https://player.vimeo.com/video/" + url_parsed.id;
-        embed_icon = "<span class='view_on_youtube'>" +
-                         "Expand: Show Video Clip</span>";
-        embed_html = "<iframe class='youtube' src='" + embed_url +
-                         "' width='640' height='360' " +
-                         "frameborder='0' allowfullscreen='allowfullscreen'>" +
-                     "</iframe>";
-      }
-      else if (url_provider == "soundcloud") {
-        // Webservice Query: Get Embed Code
-        $.getJSON('http://soundcloud.com/oembed?callback=?',
-        { format: "js", 
-          url: cited_url,
-          iframe: true
-        },
-        function(data) {
-           var embed_html = data.html;
-        });
-
-        embed_icon = "<span class='view_on_youtube'>" +
-                      "Expand: Show SoundCloud Clip</span>";
-      }
+	// ********** End: Calulate Video UI ************
 
       // If they have a cite tag, check to see if its hash is already saved
       if (cited_url.length > 3){
@@ -128,19 +75,20 @@ jQuery.fn.quoteContext = function() {
           url: read_url,
               dataType: "json",
               success: function(json) {
-                  add_quote_to_dom(tag_type, json );
-            console.log("CiteIt Found: " + read_url);
-            console.log("       Quote: " + citing_quote);
+                  add_quote_to_dom(tag_type, json, cited_url);
+
+                  console.log("CiteIt Found: " + read_url);
+                  console.log("       Quote: " + citing_quote);
               },
               error: function() {
-            console.log("CiteIt Missed: " + read_url);
-            console.log("       Quote: " + citing_quote);
+                  console.log("CiteIt Missed: " + read_url);
+                  console.log("       Quote: " + citing_quote);
               }
           });
 
-
 	// Add Hidden div with context to DOM
-        function add_quote_to_dom(tag_type, json ) {
+        function add_quote_to_dom(tag_type, json, cited_url ) {
+
           if ( tag_type == "q"){
             var q_id = "hidden_" + json.sha256;
 
@@ -161,53 +109,36 @@ jQuery.fn.quoteContext = function() {
              " />");
           }
           else if (tag_type == "blockquote"){
+			// lookup html for video ui and icon
+             embed_ui = embed_ui(cited_url, json);
 
-            //Fill "before" and "after" divs and then quickly hide them
-            blockcite.before("<div id='quote_before_" + json.sha256 +
-              "' class='quote_context'>" +
-              "<blockquote class='quote_context'>" +
-                  embed_html + "</a><br />.. " +
-                  json.cited_context_before +
-              " .. </blockquote></div>");
+			//Fill 'before' and 'after' divs and then quickly hide them
+			blockcite.before("<div id='quote_before_" + json['sha256'] + "' class='quote_context'> \
+				<blockquote class='quote_context'>.. <br />" + embed_ui['html'] + " " + json["cited_context_before"] + "</blockquote></div> \
+             ");
 
-            blockcite.after("<div id='quote_after_" + json.sha256 +
-              "' class='quote_context'>" +
-              "<blockquote class='quote_context'>" +
-                json.cited_context_after + " ..</blockquote></div>" +
-              "<div class='citeit_source'>" +
-              "<span class='citeit_source_label'>source: </span> " +
-                "<a class='citeit_source_domain' href='" + json.cited_url +
-                "'>" + extractDomain( json.cited_url ) +
-              "</a></div>"
-            );
+			blockcite.after("<div id='quote_after_" + json['sha256'] + "' class='quote_context'> \
+				<blockquote class='quote_context'>" + json["cited_context_after"] + " ..</blockquote></div> \
+				<div class='citeit_source'><span class='citeit_source_label'>source: </span> \
+				<a class='citeit_source_domain' href='" + json['cited_url'] + "'>" + extractDomain( json['cited_url'] ) + "</a></div> \
+			");
 
-            var context_before = jQuery("#quote_before_" + json.sha256);
-            var context_after = jQuery("#quote_after_" + json.sha256);
+			var context_before = jQuery("#quote_before_" + json['sha256']);
+			var context_after = jQuery("#quote_after_" + json['sha256']);
 
-            context_before.hide();
-            context_after.hide();
+			context_before.hide();
+			context_after.hide();
 
-            //Display arrows if content is found
-            if (json.cited_context_before.length > 0){
-
-	      context_before.before("<div class='quote_arrows context_up' "+
-              "id='context_up_" + json.sha256 + "'> " +
-              "<div id='up_wrap_" + json.sha256 + "'><a href=\"javascript:toggle_quote('before', 'quote_before_" +
-              json.sha256 + "','up');\">&#9650;</a></div>" +
-              "<a href=\"javascript:toggle_quote('before', 'quote_before_" +
-                json.sha256 + "');\">" +
-              embed_icon + "</a></div>");
-            }
-
-            if (json.cited_context_after.length > 0){
-            context_after.after("<div class='quote_arrows context_down' "+
-              "id='context_down_" + json.sha256 +"'> " +
-              "<a href=\"javascript:toggle_quote('after', 'quote_after_" +
-              json.sha256 +"');\">&#9660;</a></div>"
-              "<div id='down_wrap_" + json.sha256 + "','down'><a href=\"javascript:toggle_quote('after', 'quote_after_" +
-              json.sha256 +"','down');\">&#9660;</a></div></div>"
-            );
-            }
+			if( json['cited_context_before'].length > 0){
+			context_before.before("<div class='quote_arrows' id='context_up_" + json['sha256'] + "'> \
+				<a href=\"javascript:toggle_quote('before', 'quote_before_" + json['sha256'] + "');\">&#9650;</a>" + embed_ui['icon'] +
+				"</div>"
+				);
+			}
+			if( json['cited_context_after'].length > 0){
+			context_after.after("<div class='quote_arrows' id='context_down_" + json['sha256'] +"'> \
+				<a href=\"javascript:toggle_quote('after', 'quote_after_" + json['sha256'] +"');\">&#9660;</a></div>");
+			}
 
           } // elseif (tag_type == 'blockquote')
         } // end: function add_quote_to_dom
@@ -219,15 +150,17 @@ jQuery.fn.quoteContext = function() {
 
 };
 
+//*********** Toggle Quote ************
 function toggle_quote(section, id){
   jQuery("#" + id).fadeToggle();
 
   //rotate icons on click
-  let sha = id.split('_')[2];
-  let parent_div_id = "${position}_warp_${sha}";
-  jQuery("#${parent_div_id}").toggleClass("rotated180");
+  //let sha = id.split("_")[2];
+  //let parent_div_id = "${position}_warp_${sha}";
+  //jQuery("#${parent_div_id}").toggleClass("rotated180");
 }
 
+// *********** Expand Popup *************
 function expand_popup(tag, hidden_popup_id){
 
   // Configure jQuery Popup Library
@@ -269,11 +202,13 @@ function expand_popup(tag, hidden_popup_id){
   return false; // Don't follow link
 }
 
+//*********** Close Popup ************
 function close_popup(hidden_popup_id){
   // assumes jQuery library
   jQuery(hidden_popup_id).dialog("close");
 }
 
+//*********** Trim Regex ************
 function trim_regex(str){
 //Source: http://stackoverflow.com/questions/10032024/how-to-remove-leading-and-trailing-white-spaces-from-a-given-html-string
 // Credit:  KhanSharp:  (used for backward compatibility.
@@ -281,6 +216,7 @@ function trim_regex(str){
   return str.replace(/^[ ]+|[ ]+$/g,"");
 }
 
+//*********** URL without Protocol ************
 function url_without_protocol(url){
   // Remove http(s):// and trailing slash
   // Before: https://www.example.com/blog/first-post/
@@ -292,6 +228,7 @@ function url_without_protocol(url){
   return url_without_protocol;
 }
 
+//******** Escape URL *************
 function escape_url(str){
   // This is a list of Unicode character points that should be filtered out from the quote hash
   // This list should match the webservice settings: 
@@ -306,6 +243,7 @@ function escape_url(str){
   return normalize_text(str, replace_chars);
 }
 
+//********* Escape Quote ************
 function escape_quote(str){
   // This is a list of Unicode character points that should be filtered out from the quote hash
   // This list should match the webservice settings: 
@@ -325,6 +263,7 @@ function escape_quote(str){
   return normalize_text(str, replace_chars);
 }
 
+//********** Normalize Text *************
 function normalize_text(str, escape_code_points){
   /* This javascript function performs the same functionality as the
      python method: citeit_quote_context.text_convert.escape()
@@ -352,6 +291,7 @@ function normalize_text(str, escape_code_points){
   return str_return;
 }
 
+//*********** Quote Hash Key ************
 function quote_hash_key(citing_quote, citing_url, cited_url){
   var quote_hash =  escape_quote(citing_quote) + "|" +
  		    url_without_protocol(escape_url(citing_url)) + "|" +
@@ -360,12 +300,14 @@ function quote_hash_key(citing_quote, citing_url, cited_url){
   return quote_hash;
 }
 
+//*********** Quote Hash ************
 function quote_hash(citing_quote, citing_url, cited_url){
   var url_quote_text = quote_hash_key(citing_quote, citing_url, cited_url);
   var quote_hash = forge_sha256(url_quote_text);  // https://github.com/brillout/forge-sha256 
   return quote_hash;
 }
 
+//*********** Extract Domain from URL ************
 function extractDomain(url) {
     var domain;
     //find & remove protocol (http, ftp, etc.) and get domain
@@ -381,6 +323,7 @@ function extractDomain(url) {
     return domain;
 }
 
+//*********** String to Array ************
 function stringToArray(s) {
 // Credit: https://medium.com/@giltayar/iterating-over-emoji-characters-the-es6-way-f06e4589516
 // convert string to Array
@@ -388,6 +331,77 @@ function stringToArray(s) {
 	  
   for (const ch of s) {
     retVal.push(ch);
-		    }
+  }
   return retVal;
+}
+
+// ********** Begin: Calculate Video UI ************
+function embed_ui(url, json){
+
+      var media_providers = ["youtube","vimeo","soundcloud"];
+      var url_provider = "";
+      var embed_icon = "";
+      var embed_html = "";
+
+      var url_parsed = urlParser.parse(url);
+      if (typeof(url_parsed)!=="undefined") {
+        if (url_parsed.hasOwnProperty("provider")){
+          url_provider = url_parsed.provider;
+        }
+      }
+      if (url_provider == "youtube"){
+         // Generate YouTube Embed URL
+         var embed_url = urlParser.create({
+         videoInfo: {
+             provider: url_provider,
+             id: url_parsed.id,
+             mediaType: "video"
+        },
+           format: "embed",
+           params: {
+             start: url_parsed.params.start
+	       }
+        });
+
+        // Create Embed iframe 
+        embed_icon = "<span class='view_on_youtube'>" +
+                     "<br /><a href=\"javascript:toggle_quote('before', 'quote_before_" + json['sha256'] + "');\">Expand: Show Video Clip</a></span>";
+
+        embed_html = "<iframe class='youtube' src='" + embed_url +
+                         "' width='560' height='315' " +
+                         "frameborder='0' allowfullscreen='allowfullscreen'>" +
+                     "</iframe>";
+      }
+      else if (url_provider == "vimeo") {
+        // Create Canonical Embed URL:
+        embed_url = "https://player.vimeo.com/video/" + url_parsed.id;
+        embed_icon = "<span class='view_on_youtube'>" +
+                         "<br />Expand: Show Video Clip</span>";
+        embed_html = "<iframe class='youtube' src='" + embed_url +
+                         "' width='640' height='360' " +
+                         "frameborder='0' allowfullscreen='allowfullscreen'>" +
+                     "</iframe>";
+      }
+      else if (url_provider == "soundcloud") {
+        // Webservice Query: Get Embed Code
+        $.getJSON("http://soundcloud.com/oembed?callback=?",
+        { format: "js", 
+          url: cited_url,
+          iframe: true
+        },
+        function(data) {
+           var embed_html = data.html;
+        });
+
+        embed_icon = "<span class='view_on_youtube'>" +
+                      "<br ><a href=\" \">Expand: Show SoundCloud Clip</a></span>";
+      }
+
+      embed_ui['url_provider'] = url_provider;
+      embed_ui['icon'] = embed_icon;
+      embed_ui['html'] = embed_html;
+      embed_ui['url'] = url;
+      embed_ui['json'] = json;
+
+      return embed_ui;
 }
