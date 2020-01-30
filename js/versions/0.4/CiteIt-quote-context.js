@@ -131,13 +131,15 @@ jQuery.fn.quoteContext = function() {
 
 			if( json['cited_context_before'].length > 0){
 			context_before.before("<div class='quote_arrows' id='context_up_" + json['sha256'] + "'> \
-				<a href=\"javascript:toggle_quote('before', 'quote_before_" + json['sha256'] + "');\">&#9650;</a>" + embed_ui['icon'] +
+				<a id='quote_arrow_up_" + json['sha256'] + "' \
+                 href=\"javascript:toggle_quote('quote_arrow_up', 'quote_before_" + json['sha256'] + "');\">&#9650;</a>" + embed_ui['icon'] +
 				"</div>"
 				);
 			}
 			if( json['cited_context_after'].length > 0){
 			context_after.after("<div class='quote_arrows' id='context_down_" + json['sha256'] +"'> \
-				<a href=\"javascript:toggle_quote('after', 'quote_after_" + json['sha256'] +"');\">&#9660;</a></div>");
+				<a id='quote_arrow_down_" + json['sha256'] + "' \
+                 href=\"javascript:toggle_quote('quote_arrow_down', 'quote_after_" + json['sha256'] +"');\">&#9660;</a></div>");
 			}
 
           } // elseif (tag_type == 'blockquote')
@@ -150,14 +152,34 @@ jQuery.fn.quoteContext = function() {
 
 };
 
+//********** Get Nth index posiiton **********/
+// Credit: // https://stackoverflow.com/users/80860/kennebec
+// Source: https://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string
+
+function nthIndex(str, pat, n){
+    var L= str.length, i= -1;
+    while(n-- && i++<L){
+        i= str.indexOf(pat, i);
+        if (i < 0) break;
+    }
+    return i;
+}
+
 //*********** Toggle Quote ************
 function toggle_quote(section, id){
-  jQuery("#" + id).fadeToggle();
+  /* Example: 
+     <a href=\"javascript:toggle_quote('after', 'quote_after_" + json['sha256'] +"');\">&#9660;</a></div>");
+ 
+     section: quote_arrow_down
+     id: quote_after_655df86dfb52b7471d842575e72f5223c8d38898ddbf064a22932a5d3f6f23f8
+  */
 
-  //rotate icons on click
-  //let sha = id.split("_")[2];
-  //let parent_div_id = "${position}_warp_${sha}";
-  //jQuery("#${parent_div_id}").toggleClass("rotated180");
+  //rotate arrow icons on click
+  let sha = id.split("_")[2];              // 655df86dfb52b7471d842575e72f5223c8d38898ddbf064a22932a5d3f6f23f8
+  let parent_div_id = section + "_" + sha; // context_down_655df86dfb52b7471d842575e72f5223c8d38898ddbf064a22932a5d3f6f23f8
+  
+  jQuery("#" + parent_div_id).toggleClass("rotated180");    // rotate arrows: flip up or down
+  jQuery("#" + id).fadeToggle();
 }
 
 // *********** Expand Popup *************
@@ -365,7 +387,7 @@ function embed_ui(url, json){
 
         // Create Embed iframe 
         embed_icon = "<span class='view_on_youtube'>" +
-                     "<br /><a href=\"javascript:toggle_quote('before', 'quote_before_" + json['sha256'] + "');\">Expand: Show Video Clip</a></span>";
+                     "<br /><a href=\"javascript:toggle_quote('quote_arrow_up', 'quote_before_" + json['sha256'] + "');\">Expand: Show Video Clip</a></span>";
 
         embed_html = "<iframe class='youtube' src='" + embed_url +
                          "' width='560' height='315' " +
