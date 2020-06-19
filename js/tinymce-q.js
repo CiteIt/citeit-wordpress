@@ -12,7 +12,7 @@
                         label: 'Quote Source Link'
                     }],
                     onsubmit: function( e ) {
-                        editor.insertContent( '<q cite="' + e.data.cite + '">' + editor.selection.getSel() + '</q>');
+                        editor.insertContent( '<q cite="' + e.data.cite + '">' + editor.selection.getContent({format : 'html'}) + '</q>');
                     }
                 });
 			}

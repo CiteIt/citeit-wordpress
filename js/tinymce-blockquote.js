@@ -14,7 +14,7 @@
                         label: 'Quote Source Link'
                     }],
                     onsubmit: function( e ) {
-                        editor.insertContent( '<blockquote cite="' + e.data.cite + '">' + editor.selection.getSel() + '</blockquote>');
+                        editor.insertContent( '<blockquote cite="' + e.data.cite + '">' + editor.selection.getContent({format : 'html'}) + '</blockquote>');
                     }
                 });
 			}
