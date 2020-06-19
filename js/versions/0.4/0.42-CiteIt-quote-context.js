@@ -307,11 +307,9 @@ function closePopup(hidden_popup_id){
 
 //*********** Trim Regex ************
 function trimRegex(str){
-  // Purpose: Backwards-compatible string trim (may not be necessary)
-  // Credit: Jhankar Mahbub:  (used for backward compatibility.
-  // GitHub Profile: https://github.com/khan4019/jhankarMahbub.com
-  // Homepage: http://www.jhankarmahbub.com/
-  // Source: http://stackoverflow.com/questions/10032024/how-to-remove-leading-and-trailing-white-spaces-from-a-given-html-string
+//Source: http://stackoverflow.com/questions/10032024/how-to-remove-leading-and-trailing-white-spaces-from-a-given-html-string
+// Credit:  KhanSharp:  (used for backward compatibility.
+// trim() was introduced in javascript 1.8.1)
   return str.replace(/^[ ]+|[ ]+$/g,"");
 }
 

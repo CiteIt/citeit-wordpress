@@ -19,12 +19,10 @@ span.blockquote {
 }
 
 div.quote_arrows a, q, q a, span.q  {
-	/* color: #be1e2d;	*/					/* maroon: Credit: http://meta.stackoverflow.com */
 	color: #0ebfe9;
 }
 
 q, q a, span.q {
-	/* border-bottom: 1px dotted #444;		 maroon: Credit: http://meta.stackoverflow.com */
 	border-bottom: 1px dotted #0ebfe9;
 }
 
@@ -41,7 +39,7 @@ span.citeit_source_label {
   color: #999;
 }
 
-/* JQUERY DEMO STYLE */
+/* jQuery Demo Style */
 div#demo_content {
 	background-color: #eee;
 	border: 1px solid #777;
@@ -64,7 +62,6 @@ div#demo_content {
   background: #080;
 }
 
-
 div.highslide-maincontent{
 	font-size: 12px;
 }
@@ -79,14 +76,14 @@ div.highslide-maincontent a{
 }
 
 /* blockquote style */
-div.quote_contexts {
+div.quote_arrows {
 	text-align: center;
 	color: #0ebfe9;
 	font-size: 16px;
 	line-height: 1.5;
 }
 
-div.quote_contexts.context_up {
+div.quote_arrows.context_up {
 	margin: 0 0 -25px 0;
 }
 
@@ -103,7 +100,6 @@ blockquote.quote_context {
 	border-left-color: #fff;
 	border-left-width: 0px;
 	color: #999;
-	margin-top: -20px;  /* Expand video */
 }
 
 div.source_info {
@@ -140,6 +136,7 @@ a.rotated180{
   -o-transform: rotate(180deg);
 
 }
+
 
 /*********** Phone-specific Styles *************/
 @media only screen and (max-width: 768px) {
