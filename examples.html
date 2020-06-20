@@ -3,17 +3,15 @@
 <head >
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CiteIt Examples</title>
+  <title>CiteIt.net Examples</title>
 
-  <link rel='stylesheet' id='wp-bigfoot-css'  href='https://www.citeit.net/wp-content/plugins/wp-bigfoot/css/bigfoot-default.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='dashicons-css'  href='https://www.citeit.net/wp-includes/css/dashicons.min.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='admin-bar-css'  href='https://www.citeit.net/wp-includes/css/admin-bar.min.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='jetpack_css-css'  href='https://www.citeit.net/wp-content/plugins/jetpack/css/jetpack.css' type='text/css' media='all' />
-  <script src='https://www.citeit.net/wp-includes/js/jquery/jquery.js'></script>
-  <script src='https://www.citeit.net/wp-includes/js/jquery/jquery-migrate.min.js'></script>
-  <script src='https://www.citeit.net/wp-content/plugins/CiteIt/lib/forge-sha256/build/forge-sha256.min.js'></script>
-  <script src='https://www.citeit.net/wp-content/plugins/CiteIt/js/versions/0.3/CiteIt-quote-context.js'></script>
-  <script src='https://www.citeit.net/wp-content/plugins/CiteIt/lib/jsVideoUrlParser/dist/jsVideoUrlParser.min.js'></script>
+  <!-- CiteIt Javascript Dependencies -->
+  <script src='https://www.openpolitics.com/wp-content/plugins/CiteIt.net/lib/jquery/jquery-3.4.1.min.js'></script>
+  <script src='https://www.openpolitics.com/wp-content/plugins/CiteIt.net/lib/forge-sha256/build/forge-sha256.min.js' defer></script>
+  <script src='https://www.openpolitics.com/wp-content/plugins/CiteIt.net/lib/jsVideoUrlParser/dist/jsVideoUrlParser.min.js' defer></script>
+
+  <!--CiteIt Main Javascript Code -->
+  <script src='https://www.openpolitics.com/wp-content/plugins/CiteIt.net/js/versions/0.4/CiteIt-quote-context.js' defer></script>
 
   <style>
 	body {
@@ -22,7 +20,6 @@
 		margin-right: 50px;
 		margin-left: 50px;
 		width: 500px;
-
 		font-size: 125%;
 	} 
 
@@ -37,7 +34,7 @@
 	}
 
 	div.quote {
-		//width: 500px;
+		width: 500px;
 	}
 	div.quote_context {
 		color: #999;
@@ -68,22 +65,16 @@ In Chapter 5 of <a href="https://en.wikisource.org/wiki/Pride_and_Prejudice/Chap
 <a href="https://medium.com/conversations-with-tyler/rabbi-david-wolpe-leaders-religion-israel-identity-7c159c2ed2d">Tyler Cowen commented to David Wolpe</a> about how social media strips away context:
 <blockquote cite="https://medium.com/conversations-with-tyler/rabbi-david-wolpe-leaders-religion-israel-identity-7c159c2ed2d" 
 	data-citeit-cited-audio-url="https://soundcloud.com/conversationswithtyler/rabbi-david-wolpe-on-leadership-religion" 
-	data-citeit-cited-video-url="https://youtu.be/DH0VqlPnzpE" 	
+	data-citeit-cited-video-url="https://youtu.be/DH0VqlPnzpE?t=1672" 	
 	data-citeit-transcript-url="https://medium.com/conversations-with-tyler/rabbi-david-wolpe-leaders-religion-israel-identity-7c159c2ed2d" 
-	data-citeit-cited-audio-start-time="2751" 
+	data-citeit-cited-audio-start-time="1672" 
 	data-citeit-cited-title="Rabbi David Wolpe on Leadership, Religion, and Identity (Ep. 19 — Live at Sixth &amp; I)" 
 	data-citeit-cited-series="Conversations with Tyler" 
 	data-citeit-cited-series-url="https://conversationswithtyler.com" 
 	data-citeit-cited-series-youtube="https://www.youtube.com/playlist?list=PLS8aEHTqDvpInY9kslUOOK8Qj_-B91o_W" 
 	data-citeit-cited-authors_names="David Wolpe, Tyler Cowen" 
 	data-citeit-cited-authors_twitter="@RabbiWolpe, @tylercowen" 
-	data-citeit-cited-authors-wikipedia-urls="https://en.wikipedia.org/wiki/David_Wolpe, https://en.wikipedia.org/wiki/Tyler_Cowen "
->I think that Judaism has the same problem that any thick civilization has in a world in which,
-as you say, context is stripped away. And not only is context stripped away,
-but attention to any one thing is scanter and less than it used to be. So, for example,
-a lot of Jewish commentary is based on your recognizing the reference that I make.
-Who recognizes references anymore? Because people don’t spend years studying books.
-</blockquote>
+	data-citeit-cited-authors-wikipedia-urls="https://en.wikipedia.org/wiki/David_Wolpe, https://en.wikipedia.org/wiki/Tyler_Cowen">I think that Judaism has the same problem that any thick civilization has in a world in which, as you say, context is stripped away. And not only is context stripped away, but attention to any one thing is canter and less than it used to be. So, for example, a lot of Jewish commentary is based on your recognizing the reference that I make. Who recognizes references anymore? Because people don’t spend years studying books.</blockquote>
 
 <h3>3: Quoting the Supreme Court</h3>
 In <a href="https://apps.oyez.org/player/#/roberts2/oral_argument_audio/22476">Citizens United vs FEC</a>, Justice Anthony Kennedy expressed his concern that the valuable knowledge of corporations would be suppressed by a ban on corporate campagin funding.
@@ -107,18 +98,15 @@ In <a href="https://apps.oyez.org/player/#/roberts2/oral_argument_audio/22476">C
 	data-citeit-cited_event_location='United States Supreme Court, Washington, D.C (USA)'
 	data-citeit-cited_event_lattitue='38.890556'
 	data-citeit-cited_event_longitude='77.004444'
-><p ng-repeat="textBlock in turn.text_blocks" oyez-sync="" start-time="3431.877" stop-time="3439.543" sync-queue="textBlocks" ng-click="player.onTextClick(textBlock)" oyez-scroll-to="sync.synced || player.isCurrentSearchResult(textBlock)" ng-class="{'active': sync.synced, 'search-result': player.isSearchResult(textBlock), 'clipping-active': player.drawer == 'clip', 'clipped': player.isClipped(textBlock)}" class="ng-binding ng-scope ng-isolate-scope"> The government silences a corporate objector, and those corporations may have the most knowledge of this on the subject. </p>
+><p ng-repeat="textBlock in turn.text_blocks" oyez-sync="" start-time="3431.877" stop-time="3439.543" sync-queue="textBlocks" ng-click="player.onTextClick(textBlock)" oyez-scroll-to="sync.synced || player.isCurrentSearchResult(textBlock)" ng-class="{'active': sync.synced, 'search-result': player.isSearchResult(textBlock), 'clipping-active': player.drawer == 'clip', 'clipped': player.isClipped(textBlock)}" class="ng-binding ng-scope ng-isolate-scope">The government silences a corporate objector, and those corporations may have the most knowledge of this on the subject.</p>
 
-<p ng-repeat="textBlock in turn.text_blocks" oyez-sync="" start-time="3439.543" stop-time="3447.51" sync-queue="textBlocks" ng-click="player.onTextClick(textBlock)" oyez-scroll-to="sync.synced || player.isCurrentSearchResult(textBlock)" ng-class="{'active': sync.synced, 'search-result': player.isSearchResult(textBlock), 'clipping-active': player.drawer == 'clip', 'clipped': player.isClipped(textBlock)}" class="ng-binding ng-scope ng-isolate-scope"> Corporations have lots of knowledge about environment, transportation issues, and you are silencing them during the election. </p>
-</blockquote>
+<p ng-repeat="textBlock in turn.text_blocks" oyez-sync="" start-time="3439.543" stop-time="3447.51" sync-queue="textBlocks" ng-click="player.onTextClick(textBlock)" oyez-scroll-to="sync.synced || player.isCurrentSearchResult(textBlock)" ng-class="{'active': sync.synced, 'search-result': player.isSearchResult(textBlock), 'clipping-active': player.drawer == 'clip', 'clipped': player.isClipped(textBlock)}" class="ng-binding ng-scope ng-isolate-scope">Corporations have lots of knowledge about environment, transportation issues, and you are silencing them during the election.</p></blockquote>
 
-<p>Though there may be something to Justice Kennedy's concern, the type of corporate "<b>knowlegede transfer</b>" that he 
-describes is atypical:</p>
+<p>Though there may be something to Justice Kennedy's concern, the type of corporate "<b>knowlegede transfer</b>" that he describes is atypical:</p>
 
 <p>Rather than expressing their "knowledge" in a 90-minute documentary or even an infomrative 1 minute commercial, 
 in actual practice, most big corporate donors pay a group of political operators to set up a "<b>front group</b>" 
 to develop a provocative 30-second ad on an <b>unrelated wedge issue</b>.</p>
-
 
 <h3>4: Reply-All: The New York City CompStat Crime-Tracking System</h3>
 <p><a href="https://gimletmedia.com/shows/reply-all">Reply-All</a> did a story in 2018 about how the New York City's <a href="https://en.wikipedia.org/wiki/CompStat" title="CompStat: Short for COMPare STATistics">CompStat</a> Crime-Tracking System was developed and how the Police Department changed with the introduction and use of the system.</p>
@@ -126,7 +114,7 @@ to develop a provocative 30-second ad on an <b>unrelated wedge issue</b>.</p>
 <p>The result was that police officers are given quotas for the number of summons (tickets) they need to issue, forcing them to trump up the charges if necessary:</p>
 <blockquote cite="https://gimletmedia.com/shows/reply-all/o2hx34/127-the-crime-machine-part-i"
 	data-citeit-cited-audio_url='https://soundcloud.com/replyall/127-the-crime-machine-part-i'
-	data-citeit-cited-audio_start_time=''
+	data-citeit-cited-audio_start_time='157'
 	data-citeit-cited-transcript_url='https://gimletmedia.com/shows/reply-all/o2hx34/127-the-crime-machine-part-i'
 	data-citeit-citing-tags='reply-all-podcast, police, crime, crime-history, new-york-city, comsats, jack-maple'
 	data-citeit-cited-title='The Crime Machine, Part I, Episode 127'
@@ -145,6 +133,8 @@ to develop a provocative 30-second ad on an <b>unrelated wedge issue</b>.</p>
 <p>PEDRO: And this was all night until all of us–there was like a four or five of us in the van, until everyone had five.</p>
 
 <p>PJ: Pedro was so confused by what had had happened that night, he actually went home, and looked up the definition of blocking pedestrian traffic. These guys had not been blocking pedestrian traffic. This was absurd. And Pedro didn't know it, but all over the city cops were getting pushed in the exact same way -- to aggressively write summonses to people for doing seemingly nothing. I talked to another cop, this guy in Brooklyn named Edwin Raymond.</p>
+
+<p>EDWIN RAYMOND: After the academy, I would run into officers that I was in the academy with. And it’d be like, “Oh, hey, what's up? Are you still at transit?” And the third question, without fail, the third question was always, “What do they want from you guys over there?” That’s how much this is part of the culture.</p>
 </blockquote>
 
 <p>This quote is from the beginning of Reply-All's superb two-part series called: 
@@ -154,10 +144,12 @@ to develop a provocative 30-second ad on an <b>unrelated wedge issue</b>.</p>
 	<a href="./">New Submission</a> | <b>Examples</b>
 </div>
 
-  <div id='neotext_container'><!-- neotext quote-context.js injects data returned from lookup in this hidden div --></div>
+  <div id='citeit_container'><!-- neotext quote-context.js injects data returned from lookup in this hidden div --></div>
   <script>
 	// Call plugin on all blockquotes:
-	jQuery('q, blockquote').quoteContext();
+	$( document ).ready(function() {
+		jQuery('q, blockquote').quoteContext();
+	});
   </script>
 
 </body>
