@@ -56,9 +56,9 @@ add_action( 'wp_footer', 'citeit_quote_context_footer');
 function post_to_citeit($post_url){
   // Post $url to $webservice_url using curl
 
-  $webservice_url = "http://api.citeit.net/";
+  $webservice_url = "http://api.citeit.net/v0.4/url/";
   $post_fields = 'url=' . $post_url;
-  $curl_user_agent = "CiteIt.net Wordpress v" . $plugin_version_num . " (http://www.CiteIt.net)";
+  $curl_user_agent = "CiteIt.net WordPress v" . $plugin_version_num . " (http://www.CiteIt.net)";
 
   $ch = curl_init( $webservice_url );
   curl_setopt($ch,CURLOPT_USERAGENT, $curl_user_agent);
