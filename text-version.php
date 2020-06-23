@@ -1,66 +1,3 @@
-<?php
-
-$JSON_FOLDER = "CiteIt.net_json/";
-
-function get_json_from_webservice($submitted_url){
-  	$CITEIT_BASE_URL = 'http://api.citeit.net/v0.4/url/?url=';
-	$DOMAIN_FILTER_DISABLED = True; 
-	$DOMAIN_FILTER = "citeit.net";  // do not save unless from this domain	
-	$parse = parse_url($submitted_url);
-	$submitted_url_domain = $parse['host'];
-  	$data = array();
-
-	// Is this a valid url?  If so save JSON results to file.
-	if (filter_var($submitted_url, FILTER_VALIDATE_URL)) { 			
-
-		// Only allow requests for this domain
-		if (($submitted_url_domain == $DOMAIN_FILTER) | $DOMAIN_FILTER_DISABLED){
-			$webservice_url = $CITEIT_BASE_URL . $submitted_url;
-			
-			// Call Webservice and return json
-			$data = json_decode(file_get_contents($webservice_url), true);
-			
-			// Write json data to file
-			foreach($data as $sha256=>$quote){
-				$folder = "CiteIt.net_json/";
-				$filename = $GLOBALS['JSON_FOLDER'] . $sha256 . '.json';
-				$json = json_encode($data);
-
-				file_put_contents($filename, $json);
-
-				$public_url = sha_to_url($sha256);
-				print("<a href='" . $public_url ."'>" . $sha256 . "</a> : " . $quote . "<br />");
-			}
-		}
- 
-	} else {
-	    print("<p class='error'>$url is not a valid URL</p>");
-	}
-	return data;
-}
-
-function sha_to_url($sha256){
-  // Construct a link to the JSON snippet on the main CiteIt site	
-  return 'https://read.citeit.net/quote/sha256/0.4/' . substr($sha256, 0, 2) . "/" . $sha256 . '.json';
-
-}
-
-function print_json_files($path){
-  if (isset($_POST['url'])){
-
-	$files = array_diff(
-				scandir($path),
-				array('.', '..') // remove dots from array
-			);
-	print("<h3>Citation Snippets list:</h3>");
-	print("<ul>");
-	foreach($files as $file){
-		print("<li><a href='$path$file'>$file</a></li>");
-	}
-	print("</ul>");
-  }
-}
-?>
 <!DOCTYPE html>
 <html lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 <head >
@@ -129,7 +66,7 @@ function print_json_files($path){
 	<h2>a higher standard of citation</h2>
 
 
-	<form action="" method="POST">
+	<form action="http://api.citeit.net/document/text-version" method="GET">
 	  <input class="url"
 	  	type="url"
 		name="url"
@@ -139,39 +76,23 @@ function print_json_files($path){
 	  <input class="submit" type="submit" value="submit page" />
 	</form>
 
-	<h3>How to add context to one of your webpages with Citet.net</h3>
+	<h3>Create a text-version of a webpage</h3>
 
-    <ol>
-        <li>Mark up your page by adding a blockquote or q tag with a "cite" tag</li>
-        <li>Add the CiteIt javascript to your page template (see <a href="https://github.com/CiteIt/citeit-examples">example code</a>)</li>
-        <li>Submit the URL of your page to be indexed (above).</li>
-        <li>Reload your page.</li>
-    </ol>
+    <ul>
+        <li>Submit the URL of a webpage you would like to convert from <b>html to text</b></li>
+    </ul>
 
-	<h3>What this does</h3>
+	<br /><br />
+
+	<h3>What this does:</h3>
 
     <p>
-       This will retreive the 500 characters of context
-	   before and after your quotation and store it in a JSON snippet.
+       This will convert the html of a webpage to a text-only version
 	</p>
 
-    <p>When you reload your page, the javascript will pull in the context from the
-    newly-created JSON snippet.</p>
+    <p>If you would like to work on the <b>PDF -> text</b> conversion, <a href="https://www.openpolitics.com/tim">send me an email</a>.</p>
 
 
-	<?php
-	if (isset($_POST['url'])){
-	  print("<h3>Results:</h3>");
-	  $json = get_json_from_webservice($_POST['url']);
-
-	}
-	?>
-
-	<div id="list_citations">
-	<?php
-		print_json_files($JSON_FOLDER);
-	?>
-	</div>
 
 	<!---------------------- Display API Methods ----------------------->
 	<h3>API Examples</h3>
@@ -208,6 +129,7 @@ function print_json_files($path){
 	<!---------------------- End: Display API Methods ----------------------->
 
 
+	<div id="list_citations">
 	<div id="footer">
 		<p><b>What:</b> <a href="https://www.citeit.net/">CiteIt.net</a> is a citation tool that 
 			<b>enables web authors to demonstrate the context</b> of their citations.
@@ -219,7 +141,7 @@ function print_json_files($path){
 	</div>
 
 	<div id="navigation">
-		<b>New Submission</b> | <a href="examples.html">Examples</a> | <a href="https://www.citeit.net/sample-code/text-version.php">Text-Version</a> | <a href="https://github.com/CiteIt/citeit-sample-code">GitHub Download</a>
+		<a href="https://www.citeit.net/sample-code/">New Submission</a> | <a href="examples.html">Examples</a> | <b>Text-Version</b> | <a href="https://github.com/CiteIt/citeit-sample-code">GitHub Download</a>
 	</div>
 
 
