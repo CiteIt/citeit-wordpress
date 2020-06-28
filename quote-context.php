@@ -1,7 +1,7 @@
 <?php
 /**
  * @package CiteIt.net
- * @version 0.64
+ * @version 0.4.3
  */
 /*
 Plugin Name: CiteIt.net Quote-Context
@@ -9,11 +9,11 @@ Plugin URI: http://www.CiteIt.net
 
 Description: Expands "blockquotes" with surrounding text by : selecting all "blockquote" tags that have a "cite" attribute, downloading the cited url, locating the citation, saving the "before" and "after" text into a json file, and adding the retrieved text to the dom.  Submits Quotations from Published posts to the CiteIt.net web service.
 Author: Tim Langeman
-Version: 0.64
+Version: 0.4.3
 Author URI: http://www.openpolitics.com/tim
 */
 
-$plugin_version_num = "0.64";
+$plugin_version_num = "0.4.3";
 $webservice_version_num = "0.4";
 
 
