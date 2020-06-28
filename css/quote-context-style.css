@@ -20,6 +20,7 @@ span.blockquote {
 
 div.quote_arrows a, q, q a, span.q  {
 	color: #0ebfe9;
+	border: 0px;
 }
 
 q, q a, span.q {

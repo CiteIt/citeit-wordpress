@@ -1,52 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="80acf602-2e5f-434a-a6e9-56b7ab9bb90c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/quote-context-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/quote-context-style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/tinymce-blockquote.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/tinymce-blockquote.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/tinymce-q.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/tinymce-q.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/versions/0.3/CiteIt-quote-context.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/versions/0.3/CiteIt-quote-context.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/bower.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/bower.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/dist/jsVideoUrlParser.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/dist/jsVideoUrlParser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/dist/jsVideoUrlParser.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/dist/jsVideoUrlParser.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/jestconfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/jestconfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/base.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/canalplus.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/canalplus.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/canalplus.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/canalplus.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/coub.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/coub.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/coub.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/coub.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/dailymotion.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/dailymotion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/dailymotion.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/dailymotion.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/soundcloud.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/soundcloud.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/soundcloud.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/soundcloud.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/teachertube.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/teachertube.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/template.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/template.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/template.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/template.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/twitch.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/twitch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/twitch.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/twitch.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/vimeo.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/vimeo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/vimeo.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/vimeo.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/wistia.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/wistia.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/wistia.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/wistia.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/youku.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/youku.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/youku.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/youku.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/youtube.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/youtube.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/youtube.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/provider/youtube.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/testUrls.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/testUrls.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/urlParser.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/urlParser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/urlParser.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/urlParser.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/util.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/util.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/lib/util.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/jsVideoUrlParser/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/jsVideoUrlParser/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quote-context.php" beforeDir="false" afterPath="$PROJECT_DIR$/quote-context.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/readme.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,38 +15,21 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/quote-context-style.css">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js">
+        <entry file="file://$PROJECT_DIR$/lib/link-to-text-fragment/background_script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="54" selection-start-line="54" selection-end-line="54" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/quote-context.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="245">
+              <caret line="433" column="25" selection-start-line="433" selection-start-column="25" selection-end-line="433" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/readme.txt">
+        <entry file="file://$PROJECT_DIR$/css/quote-context-style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
+            <state relative-caret-position="396">
+              <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -101,6 +44,27 @@
       <find>youtub</find>
       <find>context_down_</find>
       <find>Expand</find>
+      <find>embed_url</find>
+      <find>tml</find>
+      <find>html</find>
+      <find>embedU</find>
+      <find>quote_arrow_up_</find>
+      <find>embedUi</find>
+      <find>embed_icon</find>
+      <find>embed_ui</find>
+      <find>mbed_ui.com 123</find>
+      <find>embed_ui.icon</find>
+      <find>123</find>
+      <find>rotate</find>
+      <find>s</find>
+      <find>quote_has</find>
+      <find>log</find>
+      <find>log(hash</find>
+      <find>log(&quot;cit</find>
+      <find>trimR</find>
+      <find>acorn</find>
+      <find>api.</find>
+      <find>quote_arrows</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -110,26 +74,21 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js" />
+        <option value="$PROJECT_DIR$/js/tinymce-q.js" />
+        <option value="$PROJECT_DIR$/js/tinymce-blockquote.js" />
         <option value="$PROJECT_DIR$/readme.txt" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/citeit-wordpress.iml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" />
-        <option value="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+        <option value="$PROJECT_DIR$/lib/jsVideoUrlParser/package-lock.json" />
+        <option value="$PROJECT_DIR$/lib/forge-sha256/forge/forge-sha256.min.js" />
+        <option value="$PROJECT_DIR$/../citeit-examples/index.php" />
+        <option value="$PROJECT_DIR$/quote-context.php" />
+        <option value="$PROJECT_DIR$/css/quote-context-style.css" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="608" />
+    <option name="x" value="3" />
     <option name="y" value="23" />
-    <option name="width" value="1612" />
+    <option name="width" value="2048" />
     <option name="height" value="1311" />
   </component>
   <component name="ProjectView">
@@ -137,7 +96,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -168,15 +126,34 @@
               <item name="versions" type="462c0819:PsiDirectoryNode" />
               <item name="0.4" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="citeit-wordpress" type="b2602c69:ProjectViewProjectNode" />
+              <item name="citeit-wordpress" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="citeit-wordpress" type="b2602c69:ProjectViewProjectNode" />
+              <item name="citeit-wordpress" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="jsVideoUrlParser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="citeit-wordpress" type="b2602c69:ProjectViewProjectNode" />
+              <item name="citeit-wordpress" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="link-to-text-fragment" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/forge-sha256/forge" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -185,7 +162,14 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/forge-sha256/forge" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -209,27 +193,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1579992893322</updated>
-      <workItem from="1579992895748" duration="8649000" />
+      <workItem from="1579992895748" duration="10457000" />
+      <workItem from="1592153251345" duration="21243000" />
+      <workItem from="1592800204973" duration="356000" />
+      <workItem from="1593050924265" duration="1763000" />
+      <workItem from="1593385698355" duration="45000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8649000" />
+    <option name="totallyTimeSpent" value="33864000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="608" y="23" width="1612" height="1311" extended-state="0" />
+    <frame x="3" y="23" width="2048" height="1311" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="aws.explorer" side_tool="true" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24968153" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49630845" visible="true" weight="0.20388834" />
+      <window_info id="Structure" order="1" sideWeight="0.50369155" side_tool="true" visible="true" weight="0.20388834" />
+      <window_info id="aws.explorer" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -237,41 +219,112 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="SciView" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/css/quote-context-style.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js">
+    <entry file="file://$PROJECT_DIR$/js/versions/0.4/0.41-CiteIt-quote-context.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="54" selection-start-line="54" selection-end-line="54" />
+        <state relative-caret-position="1064">
+          <caret line="478" selection-start-line="478" selection-end-line="478" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quote-context.php">
+    <entry file="file://$PROJECT_DIR$/lib/jsVideoUrlParser/package-lock.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="-108566">
+          <caret line="1578" column="53" selection-start-line="1578" selection-start-column="53" selection-end-line="1578" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/jsVideoUrlParser/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/tinymce-q.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
+        <state relative-caret-position="252">
+          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/forge-sha256/forge/forge-sha256.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="313" lean-forward="true" selection-start-line="8" selection-start-column="313" selection-end-line="8" selection-end-column="313" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../citeit-examples/index.php" />
+    <entry file="file://$PROJECT_DIR$/quote-context.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="60" column="38" selection-start-line="60" selection-start-column="38" selection-end-line="60" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1229">
+          <caret line="284" column="41" selection-start-line="284" selection-start-column="41" selection-end-line="284" selection-end-column="41" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/tinymce-blockquote.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="136" selection-start-line="16" selection-start-column="136" selection-end-line="16" selection-end-column="136" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/forge-sha256/forge/sha256.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="55" column="14" selection-start-line="55" selection-start-column="14" selection-end-line="55" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/link-to-text-fragment/background_script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="433" column="25" selection-start-line="433" selection-start-column="25" selection-end-line="433" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/quote-context-style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
         </state>
       </provider>
     </entry>
