@@ -1,11 +1,11 @@
 (function() {
 	tinymce.PluginManager.add('citeit_q', function( editor, url ) {
 		editor.addButton('citeit_q', {
-			text: 'CiteIt.net q',
+			text: 'CiteIt.net inline popup',
 			icon: false,
 			onclick: function() {
                 editor.windowManager.open( {
-                    title: 'Insert inline-quote link',
+                    title: 'Insert inline popup',
                     body: [{
                         type: 'textbox',
                         name: 'cite',

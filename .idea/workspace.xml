@@ -7,6 +7,7 @@
     <list default="true" id="80acf602-2e5f-434a-a6e9-56b7ab9bb90c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/quote-context-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/quote-context-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,21 +16,27 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/link-to-text-fragment/background_script.js">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="433" column="25" selection-start-line="433" selection-start-column="25" selection-end-line="433" selection-end-column="25" />
+            <state relative-caret-position="386">
+              <caret line="235" column="4" selection-start-line="235" selection-start-column="4" selection-end-line="235" selection-end-column="4" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/css/quote-context-style.css">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/versions/0.4/0.4.4-CiteIt-quote-context.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+            <state relative-caret-position="225">
+              <caret line="465" column="7" lean-forward="true" selection-end-line="550" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -38,23 +45,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>split</find>
-      <find>hasown</find>
-      <find>getJSON</find>
-      <find>youtub</find>
-      <find>context_down_</find>
-      <find>Expand</find>
-      <find>embed_url</find>
-      <find>tml</find>
-      <find>html</find>
-      <find>embedU</find>
-      <find>quote_arrow_up_</find>
-      <find>embedUi</find>
-      <find>embed_icon</find>
-      <find>embed_ui</find>
-      <find>mbed_ui.com 123</find>
-      <find>embed_ui.icon</find>
-      <find>123</find>
       <find>rotate</find>
       <find>s</find>
       <find>quote_has</find>
@@ -65,6 +55,26 @@
       <find>acorn</find>
       <find>api.</find>
       <find>quote_arrows</find>
+      <find>youtub</find>
+      <find>embedUi</find>
+      <find>&amp;</find>
+      <find>&amp;amp</find>
+      <find>jQuery</find>
+      <find>youtube</find>
+      <find>This is</find>
+      <find>Expand</find>
+      <find>Expand: Sou</find>
+      <find>embed_ui</find>
+      <find>Expand You</find>
+      <find>soundclou</find>
+      <find>JSON(</find>
+      <find>url_provider</find>
+      <find>urlParse</find>
+      <find>urlParser</find>
+      <find>The Bug</find>
+      <find>https://soundcloud.com/the-bugle/the-bugle-john-oliver-speaks</find>
+      <find>embed_url</find>
+      <find>alert(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -73,7 +83,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js" />
         <option value="$PROJECT_DIR$/js/tinymce-q.js" />
         <option value="$PROJECT_DIR$/js/tinymce-blockquote.js" />
         <option value="$PROJECT_DIR$/readme.txt" />
@@ -82,11 +91,13 @@
         <option value="$PROJECT_DIR$/../citeit-examples/index.php" />
         <option value="$PROJECT_DIR$/quote-context.php" />
         <option value="$PROJECT_DIR$/css/quote-context-style.css" />
+        <option value="$PROJECT_DIR$/js/versions/0.4/0.4.4-CiteIt-quote-context.js" />
+        <option value="$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="3" />
+    <option name="x" value="14" />
     <option name="y" value="23" />
     <option name="width" value="2048" />
     <option name="height" value="1311" />
@@ -197,19 +208,21 @@
       <workItem from="1592153251345" duration="21243000" />
       <workItem from="1592800204973" duration="356000" />
       <workItem from="1593050924265" duration="1763000" />
-      <workItem from="1593385698355" duration="45000" />
+      <workItem from="1593385698355" duration="768000" />
+      <workItem from="1593577041544" duration="1034000" />
+      <workItem from="1593629402005" duration="51000" />
+      <workItem from="1593641865805" duration="17601000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33864000" />
+    <option name="totallyTimeSpent" value="53273000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3" y="23" width="2048" height="1311" extended-state="0" />
-    <editor active="true" />
+    <frame x="14" y="23" width="2048" height="1311" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49630845" visible="true" weight="0.20388834" />
-      <window_info id="Structure" order="1" sideWeight="0.50369155" side_tool="true" visible="true" weight="0.20388834" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49384743" visible="true" weight="0.20987038" />
+      <window_info id="Structure" order="1" sideWeight="0.5061526" side_tool="true" visible="true" weight="0.20987038" />
       <window_info id="aws.explorer" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -236,16 +249,7 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/versions/0.4/0.41-CiteIt-quote-context.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1064">
-          <caret line="478" selection-start-line="478" selection-end-line="478" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/js/versions/0.4/0.41-CiteIt-quote-context.js" />
     <entry file="file://$PROJECT_DIR$/lib/jsVideoUrlParser/package-lock.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-108566">
@@ -290,16 +294,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1229">
-          <caret line="284" column="41" selection-start-line="284" selection-start-column="41" selection-end-line="284" selection-end-column="41" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/tinymce-blockquote.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -316,7 +310,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/link-to-text-fragment/background_script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
+        <state relative-caret-position="1136">
           <caret line="433" column="25" selection-start-line="433" selection-start-column="25" selection-end-line="433" selection-end-column="25" />
         </state>
       </provider>
@@ -325,6 +319,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/versions/0.4/0.4.4-CiteIt-quote-context.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="465" column="7" lean-forward="true" selection-end-line="550" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="235" column="4" selection-start-line="235" selection-start-column="4" selection-end-line="235" selection-end-column="4" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

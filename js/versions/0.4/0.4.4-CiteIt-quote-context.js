@@ -63,7 +63,7 @@ jQuery.fn.quoteContext = function() {
         var hash_key = quoteHashKey(citing_quote, citing_url, cited_url);
 
 		// Javascript uses utf-16.  Convert to utf-8
-		hash_key = encode_utf8(hash_key);
+		hash_key = encode_utf8(hash_key); 
 
 		console.log(hash_key);
 		var hash_value = forge_sha256(hash_key);
@@ -137,7 +137,7 @@ jQuery.fn.quoteContext = function() {
 			context_after.hide();
 
 			if( json.cited_context_before.length > 0){
-			        context_before.before("<div class='quote_arrows quote div.quote_arrow_up' id='context_up_" + json.sha256 + "'> \
+			        context_before.before("<div class='quote_arrows' id='context_up_" + json.sha256 + "'> \
 				<a id='quote_arrow_up_" + json.sha256 + "' \
                      href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" + json.sha256 + "');\">&#9650;</a> " +
 					trimDefault(embed_ui.icon) +
@@ -145,17 +145,10 @@ jQuery.fn.quoteContext = function() {
 				);
 			}
 			// Show YouTube Icon: Even if there is no context for this quote
-			else if (
-			    ( json.cited_context_before.length == 0 ) &&
-                (
-			        (embed_ui.url_provider == 'youtube') |
-                    (embed_ui.url_provider == 'vimeo') |
-                    (embed_ui.url_provider == 'soundcloud')
-                )
-            ) {
-			    context_before.before("<div class='quote_arrows quote div.quote_arrow_up'' id='context_up_" + json.sha256 + "'> \
+			else if(( json.cited_context_before.length == 0 ) && (embed_ui.url_provider == 'youtube')){
+			    context_before.before("<div class='quote_arrows' id='context_up_" + json.sha256 + "'> \
 				<a id='quote_arrow_up_" + json.sha256 + "' \
-                     href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" + json.sha256 + "');\">&#9650;</a>" +
+                     href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" + json.sha256 + "');\">&#9650;</a>" + 
 					trimDefault(embed_ui.icon) +
 				"</div>"
 				);
@@ -388,15 +381,15 @@ function isInt(data){
       return false;
   }
   else {
-      return true;
-  }
+      return true; 
+  } 
 }
 
 //****************** Text if Hexadecimal format *************
 function isHexadecimal(str){
 // Credit: https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-16.php
   regexp = /^[0-9a-fA-F]+$/;
-
+  
   if (regexp.test(str))
   {
       return true;
@@ -441,9 +434,9 @@ function embedUi(url, json){
       }
 
 	  if (url_provider.length == 0){
-		 url_provider = 'src';
+		 url_provider = 'src';		
 		 embed_icon = "<span class='view_on_youtube'>";
-
+		
 	  }
 
       else if (url_provider == "youtube"){
@@ -461,55 +454,47 @@ function embedUi(url, json){
 	       }
         });
 
+        		// Create Embed iframe
+        embed_icon = "<span class='view_on_youtube'>" +
+           "<br /><a href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" +
+            json.sha256 + "');\">Expand YouTube Video</a></span>";
+
         embed_html = "<iframe class='youtube' src='" + embed_url +
                          "' width='560' height='315' " +
                          "frameborder='0' allowfullscreen='allowfullscreen'>" +
                      "</iframe>";
-
-        // Create Embed iframe
-        embed_icon = "<span class='view_on_youtube'>" +
-           "<br /><a href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" +
-            json.sha256 + "');\">Expand YouTube Video</a></span>";
       }
 
       else if (url_provider == "vimeo") {
-      /*************** Vimeo example: https://player.vimeo.com/video/81400335#t=1m2s **************/
-
+      /*************** Vimeo **************/
         // Create Canonical Embed URL:
         embed_url = "https://player.vimeo.com/video/" + url_parsed.id;
-
-		// Add start time
-		if (url_parsed.params.start > 0){
-		    embed_url = (embed_url + "#t=" + url_parsed.params.start + 's')
-		}
-
-        embed_html = '<iframe src="' +  embed_url + '" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
-
-     	// Create Embed iframe
         embed_icon = "<span class='view_on_youtube'>" +
-           "<br /><a href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" +
-            json.sha256 + "');\">Expand Vimeo Clip</a></span>";
+                         "<br />Expand Vimeo Clip</span>";
+        embed_html = "<iframe class='vimeo' src='" + embed_url +
+                         "' width='640' height='360' " +
+                         "frameborder='0' allowfullscreen='allowfullscreen'>" +
+                     "</iframe>";
       }
 
       else if (url_provider == "soundcloud") {
       /*************** Soundcloud **************/
-
-        embed_url = urlParser.create({
-            videoInfo: {
-              provider: 'soundcloud',
-              id: url_parsed.id,
-              channel: url_parsed.channel,
-              mediaType: 'track'
-            },
-            format: 'embed'
+        // Webservice Query: Get Embed Code
+        $.getJSON("http://soundcloud.com/oembed?callback=?",
+        { format: "js",
+          url: cited_url,
+          iframe: true
+        },
+        function(data) {
+           var embed_html = data.html;
         });
 
-        embed_html = '<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="' + embed_url + '&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>';
-
-        // Create Embed iframe
         embed_icon = "<span class='view_on_youtube'>" +
-           "<br /><a href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" +
-            json.sha256 + "');\">Expand Soundcloud Clip</a></span>";
+                      "<br ><a href=\" \">Expand: SoundCloud Clip</a></span>";
+
+        embed_url = "https://soundcloud.com/the-bugle/the-bugle-john-oliver-speaks#t=6:46";
+        embed_html = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=' + embed_url + &color=0066cc"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/the-bugle" title="The Bugle" target="_blank" style="color: #cccccc; text-decoration: none;">The Bugle</a> · <a href="' + embed_url + " title="Bugle 179 - Playas gon play" target="_blank" style="color: #cccccc; text-decoration: none;">Bugle 179 - Playas gon play</a></div>';
+
       }
 	  else {
 	  }
