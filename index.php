@@ -3,36 +3,36 @@
 $JSON_FOLDER = "CiteIt.net_json/";
 
 function get_json_from_webservice($submitted_url){
-  	$CITEIT_BASE_URL = 'http://api.citeit.net/v0.4/url/?url=';
+
+  	$CITEIT_BASE_URL = 'http://api.citeit.net/v0.4/url/?&format=list&url=';
 	$DOMAIN_FILTER_DISABLED = True; 
 	$DOMAIN_FILTER = "citeit.net";  // do not save unless from this domain	
 	$parse = parse_url($submitted_url);
 	$submitted_url_domain = $parse['host'];
   	$data = array();
 
+
 	// Is this a valid url?  If so save JSON results to file.
 	if (filter_var($submitted_url, FILTER_VALIDATE_URL)) { 			
 
 		// Only allow requests for this domain
 		if (($submitted_url_domain == $DOMAIN_FILTER) | $DOMAIN_FILTER_DISABLED){
+
 			$webservice_url = $CITEIT_BASE_URL . $submitted_url;
 			
 			// Call Webservice and return json
 			$data = json_decode(file_get_contents($webservice_url), true);
-			
-			// Write json data to file
-			foreach($data as $sha256=>$quote){
-				$folder = "CiteIt.net_json/";
-				$filename = $GLOBALS['JSON_FOLDER'] . $sha256 . '.json';
-				$json = json_encode($data);
 
+			foreach($data as $quote_num=>$quote){
+				$public_url = sha_to_url($quote['sha256']);	
+				print("<p><a href='" . $public_url ."'>" . $quote['sha256'] . "</a> : " . $quote['citing_quote'] . "</p>");
+
+				$filename = "CiteIt.net_json/" . $quote['sha256'];
+				$json = json_encode($quote);
 				file_put_contents($filename, $json);
-
-				$public_url = sha_to_url($sha256);
-				print("<a href='" . $public_url ."'>" . $sha256 . "</a> : " . $quote . "<br />");
 			}
 		}
- 
+		
 	} else {
 	    print("<p class='error'>$url is not a valid URL</p>");
 	}
@@ -52,10 +52,10 @@ function print_json_files($path){
 				scandir($path),
 				array('.', '..') // remove dots from array
 			);
-	print("<h3>Citation Snippets list:</h3>");
+	print("<h3>Citation Local Files:</h3>");
 	print("<ul>");
 	foreach($files as $file){
-		print("<li><a href='$path$file'>$file</a></li>");
+		print("<li><a href='" . $path . $file . "'>" . $file . ".js</a></li>");
 	}
 	print("</ul>");
   }
@@ -178,8 +178,9 @@ function print_json_files($path){
 	<ul>
 		<li>Submit a URL for Indexing: (POST-preferred)
 			<ul>
-			<li><a rel="nofollow" href="http://api.citeit.net/v0.4/url/?url=https://www.citeit.net/sample-code/examples.html">http://api.citeit.net/v0.4/url/?url=https://www.citeit.net/sample-code/examples.html</a>
+			<li>summary: <a rel="nofollow" href="http://api.citeit.net/v0.4/url/?url=https://www.citeit.net/sample-code/examples.html">http://api.citeit.net/v0.4/url/?url=https://www.citeit.net/sample-code/examples.html</a>
 			</li>
+			<li>list: <a href="http://api.citeit.net/v0.4/url/?url=https://www.citeit.net/sample-code/examples.html&format=list">http://api.citeit.net/v0.4/url/?url=https://www.citeit.net/sample-code/examples.html&amp;format=list</a></li>
 			</ul>
 		</li>
 
