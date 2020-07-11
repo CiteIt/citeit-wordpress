@@ -25,9 +25,9 @@ function get_json_from_webservice($submitted_url){
 
 			foreach($data as $quote_num=>$quote){
 				$public_url = sha_to_url($quote['sha256']);	
-				print("<p><a href='" . $public_url ."'>" . $quote['sha256'] . "</a> : " . $quote['citing_quote'] . "</p>");
+				print("<p><a href='CiteIt.net_json/" . $quote['sha256'] . ".json'>" . $quote['sha256'] . "</a> : " . $quote['citing_quote'] . "</p>");
 
-				$filename = "CiteIt.net_json/" . $quote['sha256'];
+				$filename = "CiteIt.net_json/" . $quote['sha256'] . ".json";
 				$json = json_encode($quote);
 				file_put_contents($filename, $json);
 			}
@@ -52,10 +52,10 @@ function print_json_files($path){
 				scandir($path),
 				array('.', '..') // remove dots from array
 			);
-	print("<h3>Citation Local Files:</h3>");
+	print("<h3>All Local JSON Files:</h3>");
 	print("<ul>");
 	foreach($files as $file){
-		print("<li><a href='" . $path . $file . "'>" . $file . ".js</a></li>");
+		print("<li><a href='" . $path . $file . ".json'>" . $file . ".json</a></li>");
 	}
 	print("</ul>");
   }
@@ -169,7 +169,7 @@ function print_json_files($path){
 
 	<div id="list_citations">
 	<?php
-		print_json_files($JSON_FOLDER);
+		// print_json_files($JSON_FOLDER);
 	?>
 	</div>
 
