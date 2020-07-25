@@ -29,6 +29,7 @@ var popup_library = "jQuery";
 // div in footer than holds injected json data, requires css class to hide
 var hidden_container = "citeit_container";
 var webservice_version_num = "0.4";
+var embed_ui = "";
 var embed_url = "";
 var embed_icon = "";
 var embed_html = "";
@@ -55,6 +56,69 @@ jQuery.fn.quoteContext = function() {
           citing_url = citing_url.substring(0, citing_url.indexOf("?")); // get citing_url before '?'
       }
 
+      /*************************** Lookup Source and Embed Media **************************/
+
+      // Test the URL to see if it is from one of the Supported Media Providers:
+      var media_providers = ["youtube","vimeo","soundcloud"];
+      var url_provider = "";
+      console.log("cited_url: " + cited_url);
+
+      var url_parsed = urlParser.parse(cited_url);
+      if (!(typeof url_parsed === 'undefined')) {
+        if (url_parsed.hasOwnProperty("provider")){
+          url_provider = url_parsed.provider;
+        }
+      }
+      if (url_provider == "youtube"){
+	// Generate YouTube Embed URL
+	   embed_url = urlParser.create({
+	   videoInfo: {
+             provider: url_provider,
+             id: url_parsed.id,
+             mediaType: 'video'
+	   },
+           format: 'long',
+           params: {
+             start: url_parsed.params.start
+	   }
+	});
+
+        // Create Embed iframe
+        embed_icon = "<br /><span class='view_on_youtube'>" +
+                     "Expand: Show Video Clip</span>";
+        embed_html = "<iframe class='youtube' src='" + embed_url +
+                         "' width='560' height='315' " +
+                         "frameborder='0' allowfullscreen='allowfullscreen'>" +
+                     "</iframe>";
+      }
+      else if (url_provider == "vimeo") {
+        // Create Canonical Embed URL:
+        embed_url = "https://player.vimeo.com/video/" + url_parsed.id;
+        embed_icon = "<br ><span class='view_on_youtube'>" +
+                         "Expand: Show Video Clip</span>";
+        embed_html = "<iframe class='youtube' src='" + embed_url +
+                         "' width='640' height='360' " +
+                         "frameborder='0' allowfullscreen='allowfullscreen'>" +
+                     "</iframe>";
+      }
+      else if (url_provider == "soundcloud") {
+        // Webservice Query: Get Embed Code
+        $.getJSON('http://soundcloud.com/oembed?callback=?',
+        { format: 'js',
+          url: cited_url,
+          iframe: true
+        },
+        function(data) {
+           embed_html = data.html;
+        });
+
+        embed_icon = "<br ><span class='view_on_youtube'>" +
+                         "Expand: Show SoundCloud Clip</span>";
+      }
+
+      console.log("cited_url: " + cited_url);
+
+
       // ******************** End: Calculate Video UI *********************
 
       // If they have a cite tag, check to see if its hash is already saved
@@ -63,7 +127,9 @@ jQuery.fn.quoteContext = function() {
         var hash_key = quoteHashKey(citing_quote, citing_url, cited_url);
 
 		// Javascript uses utf-16.  Convert to utf-8
-		hash_key = encode_utf8(hash_key);
+		hash_key = encode_utf8(hash_key); 
+
+		//alert(hash_key);
 
 		console.log(hash_key);
 		var hash_value = forge_sha256(hash_key);
@@ -102,8 +168,8 @@ jQuery.fn.quoteContext = function() {
             //Add content to a hidden div, so that the popup can later grab it
             jQuery("#" + hidden_container).append(
               "<div id='" + q_id + "' class='highslide-maincontent'>.. " +
-                json.cited_context_before + " " + " <strong>" +
-                json.citing_quote + "</strong> " +
+                json.cited_context_before + " " + " <span class='q-tag-highlight'><strong>" +
+                json.citing_quote + "</strong></span> " +
                 json.cited_context_after + ".. </p>" +
                 "<p><a href='" + json.cited_url +
                 "' target='_blank'>Read more</a> | " +
@@ -126,7 +192,7 @@ jQuery.fn.quoteContext = function() {
 
 			blockcite.after("<div id='quote_after_" + json.sha256 + "' class='quote_context'> \
 				<blockquote class='quote_context'>" + json.cited_context_after + " ..</blockquote></div> \
-				<div class='citeit_source'><span class='citeit_source_label'>source:: </span> " + " \
+				<div class='citeit_source'><span class='citeit_source_label'>source: </span> \
 				<a class='citeit_source_domain' href='" + json.cited_url + "'>" + extractDomain( json.cited_url ) + "</a></div> \
 			");
 
@@ -137,30 +203,12 @@ jQuery.fn.quoteContext = function() {
 			context_after.hide();
 
 			if( json.cited_context_before.length > 0){
-			        context_before.before("<div class='quote_arrows quote div.quote_arrow_up' id='context_up_" + json.sha256 + "'> \
+			        context_before.before("<div class='quote_arrows' id='context_up_" + json.sha256 + "'> \
 				<a id='quote_arrow_up_" + json.sha256 + "' \
-                     href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" + json.sha256 + "');\">&#9650;</a> " +
-					trimDefault(embed_ui.icon) +
+                     href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" + json.sha256 + "');\">&#9650;</a> " + trimDefault(embed_ui.icon) +
 				"</div>"
 				);
 			}
-			// Show YouTube Icon: Even if there is no context for this quote
-			else if (
-			    ( json.cited_context_before.length == 0 ) &&
-                (
-			        (embed_ui.url_provider == 'youtube') |
-                    (embed_ui.url_provider == 'vimeo') |
-                    (embed_ui.url_provider == 'soundcloud')
-                )
-            ) {
-			    context_before.before("<div class='quote_arrows quote div.quote_arrow_up'' id='context_up_" + json.sha256 + "'> \
-				<a id='quote_arrow_up_" + json.sha256 + "' \
-                     href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" + json.sha256 + "');\">&#9650;</a>" +
-					trimDefault(embed_ui.icon) +
-				"</div>"
-				);
-			}
-
 			if( json.cited_context_after.length > 0){
 			        context_after.after("<div class='quote_arrows' id='context_down_" + json.sha256 +"'> \
 				<a id='quote_arrow_down_" + json.sha256 + "' \
@@ -388,15 +436,15 @@ function isInt(data){
       return false;
   }
   else {
-      return true;
-  }
+      return true; 
+  } 
 }
 
 //****************** Text if Hexadecimal format *************
 function isHexadecimal(str){
 // Credit: https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-16.php
   regexp = /^[0-9a-fA-F]+$/;
-
+  
   if (regexp.test(str))
   {
       return true;
@@ -429,33 +477,13 @@ function embedUi(url, json){
       var embed_html = "";
       var embed_ui = "";
 
-	  /* Get Media Provider from link */
       var url_parsed = urlParser.parse(url);
-      if (typeof(url_parsed) == "undefined") {
-          url_provider = '';
-	  }
-	  else {
+      if (typeof(url_parsed)!=="undefined") {
         if (url_parsed.hasOwnProperty("provider")){
           url_provider = url_parsed.provider;
         }
       }
-
-	  if (url_provider.length == 0){
-		 url_provider = 'src';
-		 embed_icon = "<span class='view_on_youtube'>";
-
-	  }
-
-      else if (url_provider == "youtube"){
-      /*************** YouTube **************/
-      if (url_parsed && url_parsed.params && url_parsed.params.start){
-          var video_start = url_parsed.params.start;
-      }
-      else {
-          var video_start = 0;
-      }
-
-
+      if (url_provider == "youtube"){
          // Generate YouTube Embed URL
          var embed_url = urlParser.create({
          videoInfo: {
@@ -465,70 +493,52 @@ function embedUi(url, json){
         },
            format: "embed",
            params: {
-             start: video_start
+             start: url_parsed.params.start
 	       }
         });
+
+        // Create Embed iframe
+        embed_icon = "<span class='view_on_youtube'>" +
+                     "<br /><a href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" + json.sha256 + "');\">Expand: Show Video Clip</a></span>";
 
         embed_html = "<iframe class='youtube' src='" + embed_url +
                          "' width='560' height='315' " +
                          "frameborder='0' allowfullscreen='allowfullscreen'>" +
                      "</iframe>";
 
-        // Create Embed iframe
-        embed_icon = "<span class='view_on_youtube'>" +
-           "<br /><a href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" +
-            json.sha256 + "');\">Expand YouTube Video</a></span>";
+		//alert(embed_html);
       }
-
       else if (url_provider == "vimeo") {
-      /*************** Vimeo example: https://player.vimeo.com/video/81400335#t=1m2s **************/
-
         // Create Canonical Embed URL:
         embed_url = "https://player.vimeo.com/video/" + url_parsed.id;
-
-		// Add start time
-		if (url_parsed.params.start > 0){
-		    embed_url = (embed_url + "#t=" + url_parsed.params.start + 's')
-		}
-
-        embed_html = '<iframe src="' +  embed_url + '" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
-
-     	// Create Embed iframe
         embed_icon = "<span class='view_on_youtube'>" +
-           "<br /><a href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" +
-            json.sha256 + "');\">Expand Vimeo Clip</a></span>";
+                         "<br />Expand: Show Video Clip</span>";
+        embed_html = "<iframe class='youtube' src='" + embed_url +
+                         "' width='640' height='360' " +
+                         "frameborder='0' allowfullscreen='allowfullscreen'>" +
+                     "</iframe>";
       }
-
       else if (url_provider == "soundcloud") {
-      /*************** Soundcloud **************/
-
-        embed_url = urlParser.create({
-            videoInfo: {
-              provider: 'soundcloud',
-              id: url_parsed.id,
-              channel: url_parsed.channel,
-              mediaType: 'track'
-            },
-            format: 'embed'
+        // Webservice Query: Get Embed Code
+        $.getJSON("http://soundcloud.com/oembed?callback=?",
+        { format: "js",
+          url: cited_url,
+          iframe: true
+        },
+        function(data) {
+           var embed_html = data.html;
         });
 
-        embed_html = '<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="' + embed_url + '&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>';
-
-        // Create Embed iframe
         embed_icon = "<span class='view_on_youtube'>" +
-           "<br /><a href=\"javascript:toggleQuote('quote_arrow_up', 'quote_before_" +
-            json.sha256 + "');\">Expand Soundcloud Clip</a></span>";
+                      "<br ><a href=\" \">Expand: Show SoundCloud Clip</a></span>";
       }
-	  else {
-	  }
+      
 
-	  var embed_ui = {
-		url_provider: url_provider, 
-		icon: embed_icon, 
-		html: embed_html, 
-		url: url,
-		json: json,
-	  };
+      embed_ui.url_provider = url_provider;
+      embed_ui.icon = embed_icon;
+      embed_ui.html = embed_html;
+      embed_ui.url = url;
+      embed_ui.json = json;
 
       return embed_ui;
 }

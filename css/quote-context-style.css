@@ -14,26 +14,24 @@ div.ui-dialog, div.ui-widget {
 	z-index: 999999;
 }
 
+div.ui-dialog-content {
+	line-height: 150%;
+}
+
 span.blockquote {
 	color: #555;
 }
 
-div.quote_arrows a, q, q a, span.q, div.quote_arrows a:hover {
+div.quote_arrows a, q, q a, span.q, a.citeit_source_domain {
 	color: #0ebfe9;
-	border: 0px;
 }
-
-div.quote_arrow_up, div.quote_arrow_down {
-	margin-bottom: -25px;
-}
-
-div.logo div.quote_arrow_up, div.logo div.quote_arrow_down {
-	margin-bottom: 0px;
-}
-
 
 q, q a, span.q {
-	border-bottom: 1px dotted #0ebfe9;
+	border-bottom: 2px double #0ebfe9;
+}
+
+span.q-tag-highlight {
+	background-color: yellow;
 }
 
 div.citeit_source {
@@ -91,7 +89,6 @@ div.quote_arrows {
 	color: #0ebfe9;
 	font-size: 16px;
 	line-height: 1.5;
-	border: 0px;
 }
 
 div.quote_arrows.context_up {
