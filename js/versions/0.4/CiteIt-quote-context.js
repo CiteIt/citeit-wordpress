@@ -448,6 +448,14 @@ function embedUi(url, json){
 
       else if (url_provider == "youtube"){
       /*************** YouTube **************/
+      if (url_parsed && url_parsed.params && url_parsed.params.start){
+          var video_start = url_parsed.params.start;
+      }
+      else {
+          var video_start = 0;
+      }
+
+
          // Generate YouTube Embed URL
          var embed_url = urlParser.create({
          videoInfo: {
@@ -457,7 +465,7 @@ function embedUi(url, json){
         },
            format: "embed",
            params: {
-             start: url_parsed.params.start
+             start: video_start
 	       }
         });
 
