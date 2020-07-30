@@ -1,7 +1,7 @@
 === CiteIt.net ===
 Contributors: Tim Langeman
 Requires at least: 4.0
-Stable tag: 0.4.3
+Stable tag: 0.4.6
 Tested up to: 5.4.2
 
 This plugin looks up the context of quotes made using the "blockquote" and "q" tag.
