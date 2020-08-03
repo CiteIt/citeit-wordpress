@@ -101,10 +101,8 @@ jQuery.fn.quoteContext = function() {
 
 //#################### Add Hidden div with context to DOM ###################
     function addQuoteToDom(tag_type, json, cited_url ) {
-	  //var embed_ui = "";
-	  //var embed_url = "";
-	  //var embed_icon = "";
 
+      // If Inline quote: Display Popup Window
       if ( tag_type == "q"){
         var q_id = "hidden_" + json.sha256;
 
