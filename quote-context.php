@@ -1,7 +1,7 @@
 <?php
 /**
  * @package CiteIt.net
- * @version 0.4.6
+ * @version 0.4.7
  */
 /*
 Plugin Name: CiteIt.net Quote-Context
@@ -9,11 +9,11 @@ Plugin URI: http://www.CiteIt.net
 
 Description: Expands "blockquotes" with surrounding text by : selecting all "blockquote" tags that have a "cite" attribute, downloading the cited url, locating the citation, saving the "before" and "after" text into a json file, and adding the retrieved text to the dom.  Submits Quotations from Published posts to the CiteIt.net web service.
 Author: Tim Langeman
-Version: 0.4.6
+Version: 0.4.7
 Author URI: http://www.openpolitics.com/tim
 */
 
-$plugin_version_num = "0.4.6";
+$plugin_version_num = "0.4.7";
 $webservice_version_num = "0.4";
 
 
@@ -134,6 +134,63 @@ function citeit_hook($post_id) {
 }
 
 add_action( 'publish_post', 'citeit_hook', 10, 2 );
+
+/******************** Add Permalinks to Citaton Tags ************************/
+
+function add_permalink($citation_tag, $content){
+  // Embed a permalink in each blockquote and q tag
+  // This allows citations to be attributed to their canonical_url even if 
+  // they are displayed on the 'homepage' or some other non-canonical location
+
+  // Credit: https://stackoverflow.com/questions/5037592/how-to-add-rel-nofollow-to-links-with-preg-replace
+  // Alex: https://stackoverflow.com/users/31671/alex
+
+  $permalink_attr_name = 'data-citeit-citing-url';
+
+  $dom = new DOMDocument('1.0', 'UTF-8');
+  $dom->preserveWhitespace = FALSE;
+  $dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+
+  $citations = $dom->getElementsByTagName($citation_tag);
+  foreach($citations as $citation) {
+
+        $permalink = get_the_permalink();
+        $oldRelAtt = $citation->attributes->getNamedItem($permalink_attr_name);
+
+		// Check if attribute is already set
+        if ($oldRelAtt == NULL) {
+            $newRel = $permalink;
+        } else {
+            $oldRel = $oldRelAtt->nodeValue;
+            $oldRel = explode(' ', $oldRel);
+            if (in_array($permalink, $oldRel)) {
+                continue;
+            }
+            $oldRel[] = $permalink;
+            $newRel = implode($oldRel,  ' ');
+        }
+
+		// Set attribute value
+        $customAtt = $dom->createAttribute($permalink_attr_name);
+        $noFollowNode = $dom->createTextNode($newRel);
+        $customAtt->appendChild($noFollowNode);
+        $citation->appendChild($customAtt);
+  }
+
+  return $dom->saveHTML();
+}
+
+function add_permalink_to_citations($content) {
+	// It would be nice if it were possible to get more than one tag at a time: (blockquote, q):  $dom->getElementsByTagName
+
+	$content = add_permalink('blockquote', $content);
+	$content = add_permalink('q', $content);
+
+	return $content;
+
+}
+add_filter( 'the_content', 'add_permalink_to_citations' );
+
 
 /***************** Add TinyMCE Admin Buttons ********************/
 # Tiny MCE: add Custom CiteIt button to editor
