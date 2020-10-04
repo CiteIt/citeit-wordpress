@@ -50,13 +50,8 @@ jQuery.fn.quoteContext = function() {
         if (jQuery(this).attr("cite")) {
             var blockcite = jQuery(this);
             var cited_url = blockcite.attr("cite");
+            var citing_url = current_page_url;
             var citing_quote = blockcite.text();
-
-		    // If Permalink isn't supplied, default to current page
-            var citing_url = blockcite.attr("data-citeit-citing-url");
-		    if (!isValidUrl(citing_url)){
-			  citing_url = current_page_url;
-			}
 
             // Remove Querystring if WordPress Preview
             if (isWordpressPreview(citing_url)) {
@@ -103,8 +98,6 @@ jQuery.fn.quoteContext = function() {
 
                     if (tag_type === "q") {
                         var q_id = "hidden_" + json.sha256;
-                        var url_cited_domain = json.cited_url.replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0];
-
 
                         //Add content to a hidden div, so that the popup can later grab it
                         jQuery("#" + hidden_container).append(
@@ -115,7 +108,7 @@ jQuery.fn.quoteContext = function() {
                             "<p><a href='" + json.cited_url +
                             "' target='_blank'>Read more</a> | " +
                             "<a href='javascript:closePopup(" +
-                            q_id + ");'>Close</a> <div class='source_url'>source: <a href='" + json.cited_url + "'>" + url_cited_domain + "</a> </p></div>"
+                            q_id + ");'>Close</a> </p></div>"
                         );
 
                         //Style quote as a link that calls the popup expander:
@@ -127,29 +120,18 @@ jQuery.fn.quoteContext = function() {
                         var embed_ui = embedUi(cited_url, json);
 
                         //Fill 'before' and 'after' divs and then quickly hide them
-                        blockcite.before("<div id='quote_before_" + json.sha256 + "' class='quote_context'>"
-                          + "<blockquote class='quote_context'>"
-                              + "<span class='context_header'>Context Before:</span>"
-                              + "<div class='tooltip'><span class='tooltip_icon'>?</span><span class='tooltiptext'>CiteIt.net displays the 500 characters of Context immediately before and after the quote</span></div><br />" 
-                              + embed_ui.html + " .. " + json.cited_context_before  
-                          + "</blockquote></div>"
-					   );
+                        blockcite.before("<div id='quote_before_" + json.sha256 + "' class='quote_context'> \
+                            <blockquote class='quote_context'>.. <br />" + embed_ui.html + " " + json.cited_context_before + "</blockquote></div> \
+                        ");
 
-                        blockcite.after("<div id='quote_after_" + json.sha256 + "' class='quote_context'>"
-                           + "<blockquote class='quote_context'>"
-                              + ".. " + json.cited_context_after + " .."
-                              + "<br /><span class='context_header'>Context After:</span>" 
-	                          + "<div class='tooltip'><span class='tooltip_icon'>?</span><span class='tooltiptext'>CiteIt.net displays the 500 characters immediately before and after the quote</span></div>" 
-                          + "</blockquote></div>" 
-                          + "<div class='citeit_source'><span class='citeit_source_label'>source: </span>"
-                          + "<a class='citeit_source_domain' href='" + json.cited_url + "'>" + extractDomain(json.cited_url) + "</a></div>"
-                        );
+                        blockcite.after("<div id='quote_after_" + json.sha256 + "' class='quote_context'> \
+                            <blockquote class='quote_context'>" + json.cited_context_after + " ..</blockquote></div> \
+                            <div class='citeit_source'><span class='citeit_source_label'>source: </span> \
+                            <a class='citeit_source_domain' href='" + json.cited_url + "'>" + extractDomain(json.cited_url) + "</a></div> \
+                        ");
 
                         var context_before = jQuery("#quote_before_" + json.sha256);
                         var context_after = jQuery("#quote_after_" + json.sha256);
-
-					   /* Main Class */
-					   blockcite.addClass('quote_text');
 
                         context_before.hide();
                         context_after.hide();
@@ -231,7 +213,7 @@ function expandPopup(tag, hidden_popup_id) {
         resizable: true,
         width: 400,
         modal: false,
-        title: "Quote Context by CiteIt.net",
+        title: "powered by CiteIt.net",
         hide: {
             effect: "size",
             duration: 400
@@ -255,7 +237,7 @@ function expandPopup(tag, hidden_popup_id) {
         effect: "scale",
         duration: 400
     }).dialog({
-        "title": "Quote Context by CiteIt.net"
+        "title": "powered by CiteIt.net"
     }).dialog("open").blur();
 
     // Close popup when you click outside of it
@@ -523,20 +505,3 @@ function encode_utf8(s) {
 function decode_utf8(s) {
     return decodeURIComponent(escape(s));
 }
-
-//****************** Is Valid URL ***********************
-// Credit: https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
-// Pavlo: https://stackoverflow.com/users/1092711/pavlo
-
-function isValidUrl(string) {
-  let url;
-
-  try {
-    url = new URL(string);
-  } catch (_) {
-    return false;  
-  }
-
-  return url.protocol === "http:" || url.protocol === "https:";
-}
-

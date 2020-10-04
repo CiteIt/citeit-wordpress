@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80acf602-2e5f-434a-a6e9-56b7ab9bb90c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,32 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="800">
-              <caret line="467" column="31" selection-start-line="467" selection-start-column="20" selection-end-line="467" selection-end-column="31" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/versions/0.4/0.4.4-CiteIt-quote-context.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7938">
-              <caret line="465" column="7" selection-end-line="550" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -95,10 +70,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="14" />
+    <option name="x" value="490" />
     <option name="y" value="23" />
     <option name="width" value="2048" />
-    <option name="height" value="1311" />
+    <option name="height" value="982" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -211,17 +186,18 @@
       <workItem from="1593629402005" duration="51000" />
       <workItem from="1593641865805" duration="17601000" />
       <workItem from="1595509979645" duration="1618000" />
+      <workItem from="1600790141376" duration="605000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54891000" />
+    <option name="totallyTimeSpent" value="55496000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="14" y="23" width="2048" height="1311" extended-state="0" />
+    <frame x="490" y="23" width="2048" height="982" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49302706" visible="true" weight="0.21186441" />
-      <window_info id="Structure" order="1" sideWeight="0.5069729" side_tool="true" visible="true" weight="0.21186441" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49101123" visible="true" weight="0.21585244" />
+      <window_info id="Structure" order="1" sideWeight="0.50898874" side_tool="true" visible="true" weight="0.21585244" />
       <window_info id="aws.explorer" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -316,15 +292,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/css/quote-context-style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+        <state relative-caret-position="118">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/versions/0.4/CiteIt-quote-context.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="467" column="31" selection-start-line="467" selection-start-column="20" selection-end-line="467" selection-end-column="31" />
+        <state relative-caret-position="772">
+          <caret line="470" selection-start-line="470" selection-end-line="470" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -333,7 +309,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/versions/0.4/0.4.4-CiteIt-quote-context.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7938">
+        <state relative-caret-position="793">
           <caret line="465" column="7" selection-end-line="550" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
